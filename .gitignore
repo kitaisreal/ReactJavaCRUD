@@ -1,7 +1,14 @@
 # Compiled class file
 *.class
+
+#IntellijIdea
 .idea
-.target
+
+#target
+*target
+target/
+src/main/webapp/node_modules*
+
 # Log file
 *.log
 

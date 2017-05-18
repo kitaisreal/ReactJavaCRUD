@@ -11,10 +11,18 @@
         <hibernate-version>5.0.1.Final</hibernate-version>
     </properties>
 
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/webapp</directory>
+                <excludes>
+                    <exclude>**/node_modules/**</exclude>
+                </excludes>
+            </resource>
+        </resources>
+    </build>
     <packaging>war</packaging>
-
     <dependencies>
-
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -80,6 +88,7 @@
             <version>${hibernate-version}</version>
         </dependency>
         <!--END Hibernate -->
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
     </dependencies>
 
 

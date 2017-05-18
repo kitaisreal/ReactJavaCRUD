@@ -35,7 +35,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/webapp" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main/webapp/node_modules" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/webapp/node_modules" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <content url="file://$MODULE_DIR$/src/main/webapp/node_modules" />

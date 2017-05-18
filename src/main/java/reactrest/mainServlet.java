@@ -22,7 +22,7 @@ public class mainServlet extends HttpServlet {
             throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
         List<ItemsEntity> items = (List<ItemsEntity>) Factory.getInstance().getItemDAO().getAllItems();
-        for (ItemsEntity item:items){'ASDASDASD'
+        for (ItemsEntity item:items){
             out.print("<h1>"+item.getItemname()+" " + item.getBrandname() +"</h1>");
         }
 

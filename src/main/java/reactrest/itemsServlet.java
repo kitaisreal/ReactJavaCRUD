@@ -1,6 +1,7 @@
 package reactrest;
 
 import org.json.simple.JSONObject;
+import reactrest.adapter.Adapter;
 import reactrest.dao.Factory;
 import reactrest.dao.hibernate.ItemsEntity;
 import reactrest.dao.utils.HibernateSessionFactory;
@@ -14,17 +15,20 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "mainServlet", urlPatterns = "/asdasd")
-public class mainServlet extends HttpServlet {
 
+@WebServlet(name = "items", urlPatterns = "/items/*")
+
+public class itemsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        Adapter adapter = new Adapter();
+        resp.setContentType("application/json");
         PrintWriter out = resp.getWriter();
-        List<ItemsEntity> items = (List<ItemsEntity>) Factory.getInstance().getItemDAO().getAllItems();
-        for (ItemsEntity item:items){
-            out.print("<h1>"+item.getItemname()+" " + item.getBrandname() +"</h1>");
-        }
+        JSONObject items = adapter.ItemListToJson((List<ItemsEntity>) Factory.getInstance().getItemDAO().getAllItems());
+        out.print(items.toString());
+        out.flush();
+
 
     }
 

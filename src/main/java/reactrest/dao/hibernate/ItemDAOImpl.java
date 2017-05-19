@@ -76,9 +76,10 @@ public class ItemDAOImpl implements ItemDAO {
         return items;
     }
 
-    public void deleteItem(ItemsEntity item) {
+    public void deleteItem(int item_id)  {
         Session session = null;
         try {
+            ItemsEntity item = getItemById(item_id);
             session = HibernateSessionFactory.getSessionFactory().openSession();
             session.beginTransaction();
             session.delete(item);

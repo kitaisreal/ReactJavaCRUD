@@ -29,13 +29,13 @@ public class Adapter {
     public JSONObject CustomerListToJson(List<CustomersEntity> list){
         ArrayList<JSONObject> customersJson = new ArrayList<JSONObject>();
         for (CustomersEntity cs: list){
-            customersJson.add(ItemToJson(cs));
+            customersJson.add(CustomerToJson(cs));
         }
         JSONObject responce = new JSONObject();
         responce.put("customer", customersJson);
         return responce;
     }
-    private JSONObject ItemToJson(CustomersEntity customer){
+    private JSONObject CustomerToJson(CustomersEntity customer){
         JSONObject customerJson = new JSONObject();
         customerJson.put("customerID", customer.getId());
         customerJson.put("customerNick",customer.getNickname());

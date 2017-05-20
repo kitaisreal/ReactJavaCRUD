@@ -4,7 +4,7 @@ import $ from "jquery";
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {items: []};
+        this.state = {items: [], customers: []};
     }
     componentDidMount() {
         $.ajax({
@@ -19,7 +19,26 @@ class App extends React.Component {
                     items: data.items
                 }, function () {
                     console.log(data.items[0].itemName);
-                    console.log(this.state.items)
+                    console.log("Items " + this.state.items)
+                });
+            },
+            error:function(data,status,er) {
+                alert("error: "+data+" status: "+status+" er:"+er);
+            }
+        });
+        $.ajax({
+            url: 'customers',
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json',
+            mimeType: 'application/json',
+
+            success:(data) => {
+                this.setState({
+                    customers: data.customers
+                }, function () {
+                    console.log("Customer " + data.customers[0].customerNick);
+                    console.log("Customers " + this.state.customers)
                 });
             },
             error:function(data,status,er) {
@@ -33,6 +52,7 @@ class App extends React.Component {
         return (
             <div>
                 <ItemList items={this.state.items}/>
+                <CustomerList customers = {this.state.customers}/>
             </div>
         );
     }
@@ -40,7 +60,7 @@ class App extends React.Component {
 
 class ItemList extends React.Component{
     render() {
-            var items = this.props.items.map(item =>
+            let items = this.props.items.map(item =>
                 <Item key={item.itemID}item={item}/>
             );
             return (
@@ -56,6 +76,23 @@ class ItemList extends React.Component{
             )
         }
 }
+class CustomerList extends React.Component{
+    render(){
+        let customers = this.props.customers.map(customer =>
+        <Customer key = {customer.customerID} customer={customer}/>);
+        return (
+            <table>
+                <tbody>
+                <tr>
+                    <th>Customer Nickname</th>
+                </tr>
+                {customers}
+                </tbody>
+            </table>
+        )
+    }
+}
+
 class Item extends React.Component{
     constructor(props) {
         super(props);
@@ -72,6 +109,25 @@ class Item extends React.Component{
                 <td>{this.props.item.brandName}</td>
                 <td>
                     <button onClick={this.handleDelete}>Delete</button>
+                </td>
+            </tr>
+        )
+    }
+}
+class Customer extends React.Component{
+    constructor(props){
+        super(props);
+        this.handleDelete = this.handleDelete.bind(this);
+    }
+    handleDelete() {
+        console.log("Delete " + this.props.customer.customerID + " " + this.props.customer.customerNick);
+    }
+    render(){
+        return (
+            <tr>
+                <td>{this.props.customer.customerNick}</td>
+                <td>
+                    <button onClick = {this.handleDelete}>Delete</button>
                 </td>
             </tr>
         )

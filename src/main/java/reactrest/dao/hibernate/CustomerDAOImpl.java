@@ -11,7 +11,7 @@ import java.util.List;
 
 public class CustomerDAOImpl implements CustomerDAO {
 
-    public void addCustomer(CustomersEntity customer) throws SQLException {
+    public void addCustomer(CustomersEntity customer){
         Session session = null;
         try {
             session = HibernateSessionFactory.getSessionFactory().openSession();
@@ -28,7 +28,7 @@ public class CustomerDAOImpl implements CustomerDAO {
         }
     }
 
-    public void updateCustomer(CustomersEntity customer) throws SQLException {
+    public void updateCustomer(CustomersEntity customer)  {
         Session session = null;
         try {
             session = HibernateSessionFactory.getSessionFactory().openSession();
@@ -44,7 +44,7 @@ public class CustomerDAOImpl implements CustomerDAO {
         }
     }
 
-    public Collection getAllCustomers() throws SQLException {
+    public Collection getAllCustomers(){
         Session session = null;
         List customers = new ArrayList<CustomersEntity>();
         try {
@@ -62,7 +62,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 
 
-    public void deleteCustomer(CustomersEntity customer) throws SQLException {
+    public void deleteCustomer(CustomersEntity customer) {
         Session session = null;
         try {
             session = HibernateSessionFactory.getSessionFactory().openSession();

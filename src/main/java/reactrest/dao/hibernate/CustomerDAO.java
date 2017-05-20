@@ -5,9 +5,9 @@ import java.util.Collection;
 
 
 public interface CustomerDAO {
-    public void addCustomer(CustomersEntity customer) throws SQLException;
-    public void updateCustomer(CustomersEntity customer) throws SQLException;
-    public Collection getAllCustomers() throws SQLException;
-    public void deleteCustomer(CustomersEntity customer) throws SQLException;
+    public void addCustomer(CustomersEntity customer);
+    public void updateCustomer(CustomersEntity customer);
+    public Collection getAllCustomers();
+    public void deleteCustomer(CustomersEntity customer);
 
 }

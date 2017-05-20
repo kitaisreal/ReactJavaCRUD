@@ -32,7 +32,7 @@ public class Adapter {
             customersJson.add(CustomerToJson(cs));
         }
         JSONObject responce = new JSONObject();
-        responce.put("customer", customersJson);
+        responce.put("customers", customersJson);
         return responce;
     }
     private JSONObject CustomerToJson(CustomersEntity customer){

@@ -5,10 +5,11 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {items: [], customers: []};
+        this.refreshPage= this.refreshPage.bind(this);
     }
     componentDidMount() {
         $.ajax({
-            url: 'items',
+            url: '/items',
             type: 'GET',
             dataType: 'json',
             contentType: 'application/json',
@@ -27,7 +28,7 @@ class App extends React.Component {
             }
         });
         $.ajax({
-            url: 'customers',
+            url: '/customers',
             type: 'GET',
             dataType: 'json',
             contentType: 'application/json',
@@ -46,7 +47,46 @@ class App extends React.Component {
             }
         });
     }
+    refreshPage(){
+        $.ajax({
+            url: '/items',
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json',
+            mimeType: 'application/json',
 
+            success:(data) => {
+                this.setState({
+                    items: data.items
+                }, function () {
+                    console.log(data.items[0].itemName);
+                    console.log("Items " + this.state.items)
+                });
+            },
+            error:function(data,status,er) {
+                alert("error: "+data+" status: "+status+" er:"+er);
+            }
+        });
+        $.ajax({
+            url: '/customers',
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json',
+            mimeType: 'application/json',
+
+            success:(data) => {
+                this.setState({
+                    customers: data.customers
+                }, function () {
+                    console.log("Customer " + data.customers[0].customerNick);
+                    console.log("Customers " + this.state.customers)
+                });
+            },
+            error:function(data,status,er) {
+                alert("error: "+data+" status: "+status+" er:"+er);
+            }
+        });
+    }
     render() {
         console.log(this.state.items);
         return (
@@ -61,7 +101,7 @@ class App extends React.Component {
 class ItemList extends React.Component{
     render() {
             let items = this.props.items.map(item =>
-                <Item key={item.itemID}item={item}/>
+                <Item key={item.itemID}item={item} />
             );
             return (
                 <table>
@@ -100,7 +140,16 @@ class Item extends React.Component{
     }
 
     handleDelete() {
-        console.log("Delete " + this.props.item.itemID + " "+ this.props.item.itemName + "  "  + this.props.item.brandName);
+        $.ajax({
+            url: '/items/delete/'+this.props.item.itemID,
+            type: 'GET',
+            success:(data) => {
+                console.log("Deleted " + this.props.item.itemID + " "+ this.props.item.itemName + "  "  + this.props.item.brandName);
+            },
+            error:function(data,status,er) {
+                alert("error: "+data+" status: "+status+" er:"+er);
+            }
+        });
     }
     render() {
         return (
@@ -120,7 +169,16 @@ class Customer extends React.Component{
         this.handleDelete = this.handleDelete.bind(this);
     }
     handleDelete() {
-        console.log("Delete " + this.props.customer.customerID + " " + this.props.customer.customerNick);
+        $.ajax({
+            url: '/customers/delete/'+this.props.customer.customerID,
+            type: 'GET',
+            success:(data) => {
+                console.log("Delete " + this.props.customer.customerID + " " + this.props.customer.customerNick);
+            },
+            error:function(data,status,er) {
+                alert("error: "+data+" status: "+status+" er:"+er);
+            }
+        });
     }
     render(){
         return (
@@ -133,4 +191,5 @@ class Customer extends React.Component{
         )
     }
 }
+
 ReactDom.render(<App />, document.getElementById('app'));

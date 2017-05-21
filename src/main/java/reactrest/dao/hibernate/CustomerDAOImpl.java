@@ -1,6 +1,7 @@
 package reactrest.dao.hibernate;
 
 
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import reactrest.dao.utils.HibernateSessionFactory;
 
@@ -44,6 +45,23 @@ public class CustomerDAOImpl implements CustomerDAO {
         }
     }
 
+    public CustomersEntity getCustomerById(int customer_id) {
+        Session session = null;
+        CustomersEntity customer = null;
+        try {
+            session = HibernateSessionFactory.getSessionFactory().openSession();
+            customer = (CustomersEntity) session.load(CustomersEntity.class,customer_id );
+            Hibernate.initialize(customer);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+        return customer;
+    }
+
     public Collection getAllCustomers(){
         Session session = null;
         List customers = new ArrayList<CustomersEntity>();
@@ -61,10 +79,10 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
 
-
-    public void deleteCustomer(CustomersEntity customer) {
+    public void deleteCustomer(int customer_id) {
         Session session = null;
         try {
+            CustomersEntity customer = getCustomerById(customer_id);
             session = HibernateSessionFactory.getSessionFactory().openSession();
             session.beginTransaction();
             session.delete(customer);

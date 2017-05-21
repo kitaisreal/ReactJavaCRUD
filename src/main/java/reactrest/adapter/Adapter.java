@@ -18,7 +18,7 @@ public class Adapter {
         responce.put("items", itemsJson);
         return responce;
     }
-    private JSONObject ItemToJson(ItemsEntity item){
+    public JSONObject ItemToJson(ItemsEntity item){
         JSONObject itemJson = new JSONObject();
         itemJson.put("itemID", item.getId());
         itemJson.put("itemName",item.getItemname());
@@ -35,7 +35,7 @@ public class Adapter {
         responce.put("customers", customersJson);
         return responce;
     }
-    private JSONObject CustomerToJson(CustomersEntity customer){
+    public JSONObject CustomerToJson(CustomersEntity customer){
         JSONObject customerJson = new JSONObject();
         customerJson.put("customerID", customer.getId());
         customerJson.put("customerNick",customer.getNickname());

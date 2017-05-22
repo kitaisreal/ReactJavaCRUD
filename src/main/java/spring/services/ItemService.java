@@ -10,5 +10,7 @@ import java.util.List;
 public interface ItemService {
     void createItem(Item item);
     void deleteItem(Long id);
+    void updateItem(Item item);
+    Item getItemByID(Long id);
     List<Item> getAllItems();
 }

@@ -31,6 +31,16 @@ public class ItemServiceImpl implements ItemService{
     }
 
     @Override
+    public void updateItem(Item item) {
+        itemRepository.save(item);
+    }
+
+    @Override
+    public Item getItemByID(Long id) {
+        return itemRepository.findOne(id);
+    }
+
+    @Override
     public List<Item> getAllItems() {
         return (List<Item>) itemRepository.findAll();
     }

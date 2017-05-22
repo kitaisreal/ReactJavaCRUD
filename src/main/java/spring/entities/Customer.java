@@ -12,16 +12,16 @@ public class Customer {
     public long getId(){ return id;}
 
     private String firstname;
-    public String getFirstnamename() {
+    public String getFirstname() {
         return firstname;
     }
-    public void setFirstnamemname(String itemname) {
+    public void setFirstname(String firstname) {
         this.firstname= firstname;
     }
 
     private String lastname;
     public String getLastname(){return lastname;}
-    public void setLastname(String brandname) {this.lastname= lastname;}
+    public void setLastname(String lastname) {this.lastname= lastname;}
 
 
 

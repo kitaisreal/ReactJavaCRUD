@@ -10,6 +10,7 @@ public class Item {
     @Column(name = "ID")
     private long id;
     public long getId(){return id;}
+    public void setId(long id){this.id = id;}
 
     private String itemname;
     public String getItemname() {
@@ -38,6 +39,6 @@ public class Item {
         this.brandname = brandname;
         this.customerid = customerid;
     }
-    protected Item(){}
+    private Item(){}
 
 }

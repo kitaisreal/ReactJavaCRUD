@@ -10,7 +10,7 @@ import spring.services.ItemService;
 import spring.services.impl.ItemServiceImpl;
 
 @Controller
-public class homeController {
+public class HomeController {
     @RequestMapping(value = "/*")
     public String home(){
 

@@ -41,7 +41,7 @@ public class Adapter {
     public JSONObject CustomerToJson(Customer customer){
         JSONObject customerJson = new JSONObject();
         customerJson.put("customerID", customer.getId());
-        customerJson.put("customerFirstName",customer.getFirstnamename());
+        customerJson.put("customerFirstName",customer.getFirstname());
         customerJson.put("customerLastName", customer.getLastname());
         return customerJson;
     }

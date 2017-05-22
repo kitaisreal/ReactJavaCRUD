@@ -19,12 +19,12 @@ import javax.servlet.http.Part;
 import java.util.List;
 
 @Controller
-public class testDBController {
+public class TestDBController {
     private final ItemService itemService;
     private final CustomerService customerService;
 
     @Autowired
-    public testDBController(ItemService itemService, CustomerService customerService) {
+    public TestDBController(ItemService itemService, CustomerService customerService) {
         this.itemService = itemService;
         this.customerService = customerService;
     }
@@ -32,14 +32,11 @@ public class testDBController {
     @RequestMapping(value = "/test")
     @ResponseBody
     public String testShit(){
-        System.out.println("BEFORE ADD SIZE" + itemService.getAllItems().size());
-        itemService.createItem(new Item("M1500","Vans",2));
-        System.out.println("AFTER ADD SIZE" + itemService.getAllItems().size());
-
-        System.out.println("BEFORE DELETE SIZE" + itemService.getAllItems().size());
-        itemService.deleteItem((long) 5);
-        System.out.println("AFTER DELETE SIZE" + itemService.getAllItems().size());
-        return "EVERYTHING SEEMS TO BE OK";
+        Item item = itemService.getItemByID((long) 13);
+        item.setItemname("ASD");
+        item.setBrandname("Z");
+        itemService.updateItem(item);
+        return "SEEMS UPDATE";
     }
 
 }

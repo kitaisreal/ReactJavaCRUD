@@ -13,6 +13,9 @@ import spring.services.CustomerService;
 import spring.services.ItemService;
 import spring.services.impl.ItemServiceImpl;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.util.List;
 
 @Controller
@@ -38,4 +41,5 @@ public class testDBController {
         System.out.println("AFTER DELETE SIZE" + itemService.getAllItems().size());
         return "EVERYTHING SEEMS TO BE OK";
     }
+
 }

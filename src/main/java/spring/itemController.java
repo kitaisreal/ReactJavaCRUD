@@ -1,6 +1,7 @@
 package spring;
 
 import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +27,14 @@ public class itemController {
         return adapter.ItemListToJson(itemService.getAllItems()).toString();
     }
     @RequestMapping(value = "/items/add", method = RequestMethod.POST)
-    public void addUser(@RequestParam JSONObject item){
-        System.out.println("TRY ADD ITEM" + item.get("itemName")  + "  " + item.get("BrandName"));
+    @ResponseBody
+    public void addUser(@RequestBody String json) throws ParseException {
+        org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
+        JSONObject item = (JSONObject) parser.parse(json);
+        String itemName = (String) item.get("itemName");
+        String itemBrand = (String) item.get("itemBrand");
+        int customerId = Integer.parseInt(item.get("customerID").toString());
+        itemService.createItem(new Item(itemName,itemBrand,customerId));
     }
     @RequestMapping(value = "/items/delete/{id}", method = RequestMethod.GET)
     @ResponseBody

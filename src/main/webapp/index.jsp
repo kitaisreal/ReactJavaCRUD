@@ -3,11 +3,13 @@
 <html>
 <head>
     <title>Title</title>
-    <spring:url value="/generated/app-bundle.js" var="crunchifyJS" />
+    <spring:url value="/generated/app-bundle.js" var="reactJS" />
+    <spring:url value="/css/main.css" var ="modalStyle"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
 </head>
 <body>
 
 <div id="app"></div>
-<script src="${crunchifyJS}"></script>
+<script src="${reactJS}"></script>
 </body>
 </html>

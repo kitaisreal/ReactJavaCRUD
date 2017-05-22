@@ -4,12 +4,13 @@ import $ from "jquery";
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {items: [], customers: []};
+        this.state = {items: [], customers: [], attributesItem:["itemName","itemBrand","customerID"]};
         this.loadItemsFromServer = this.loadItemsFromServer.bind(this);
         this.loadCustomersFromServer = this.loadCustomersFromServer.bind(this);
         this.onDeleteItem = this.onDeleteItem.bind(this);
         this.onDeleteCustomer = this.onDeleteCustomer.bind(this);
-
+        this.onCreateItem= this.onCreateItem.bind(this);
+        this.onCustomerCreate = this.onCustomerCreate.bind(this);
     }
 
     onDeleteItem(item){
@@ -28,6 +29,24 @@ class App extends React.Component {
     onDeleteCustomer(customer){
 
     }
+    onCreateItem(item){
+        $.ajax({
+            type : "POST",
+            contentType:"application/json",
+            url : "/items/add",
+            data : JSON.stringify(item),
+            success :(data)=>{
+                console.log("ITEM CREATED " + item.itemID + " " + item.itemName)
+                this.loadItemsFromServer();
+            },
+            error:function(data,status,er) {
+                alert("error: "+data+" status: "+status+" er:"+er);
+            }
+        });
+    }
+    onCustomerCreate(customer){
+
+    }
     componentDidMount() {
         this.loadItemsFromServer();
         this.loadCustomersFromServer();
@@ -44,7 +63,6 @@ class App extends React.Component {
                 this.setState({
                     items: data.items
                 }, function () {
-                    console.log(data.items[0].itemName);
                     console.log("Items " + this.state.items)
                 });
             },
@@ -78,6 +96,7 @@ class App extends React.Component {
         console.log(this.state.items);
         return (
             <div>
+                <CreateDialog attributesItem = {this.state.attributesItem} onCreateItem = {this.onCreateItem}/>
                 <ItemList items={this.state.items} onDeleteItem = {this.onDeleteItem}/>
                 <CustomerList customers = {this.state.customers}/>
             </div>
@@ -87,26 +106,26 @@ class App extends React.Component {
 
 class ItemList extends React.Component{
     render() {
-            let items = this.props.items.map(item =>
-                <Item key={item.itemID}item={item} onDeleteItem={this.props.onDeleteItem} />
-            );
-            return (
-                <table>
-                    <tbody>
-                    <tr>
-                        <th>Item Name</th>
-                        <th>Model Name</th>
-                    </tr>
-                    {items}
-                    </tbody>
-                </table>
-            )
-        }
+        let items = this.props.items.map(item =>
+            <Item key={item.itemID}item={item} onDeleteItem={this.props.onDeleteItem} />
+        );
+        return (
+            <table>
+                <tbody>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Model Name</th>
+                </tr>
+                {items}
+                </tbody>
+            </table>
+        )
+    }
 }
 class CustomerList extends React.Component{
     render(){
         let customers = this.props.customers.map(customer =>
-        <Customer key = {customer.customerID} customer={customer}/>);
+            <Customer key = {customer.customerID} customer={customer}/>);
         return (
             <table>
                 <tbody>
@@ -159,6 +178,52 @@ class Customer extends React.Component{
                     <button onClick = {this.handleDelete}>Delete</button>
                 </td>
             </tr>
+        )
+    }
+}
+class CreateDialog extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        const newItem = {};
+        this.props.attributesItem.forEach(attribute => {
+            newItem[attribute] = ReactDom.findDOMNode(this.refs[attribute]).value.trim();
+        });
+        this.props.onCreateItem(newItem);
+        this.props.attributesItem.forEach(attribute => {
+            ReactDom.findDOMNode(this.refs[attribute]).value = '';
+        });
+        window.location = "#";
+    }
+
+    render() {
+        const inputs = this.props.attributesItem.map(attribute =>
+            <p key={attribute}>
+                <input type="text" placeholder={attribute} ref={attribute} className="field"/>
+            </p>
+        );
+        return (
+            <div>
+                <a href="#createItem">Create</a>
+
+                <div id="createItem" className="modalDialog">
+                    <div>
+                        <a href="#" title="Close" className="close">X</a>
+
+                        <h2>Create new item</h2>
+
+                        <form>
+                            {inputs}
+                            <button onClick={this.handleSubmit}>Create</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         )
     }
 }

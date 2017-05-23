@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDom from "react-dom";
 import $ from "jquery";
+import { Navbar, NavItem, Nav, Grid, Row, Col } from "react-bootstrap";
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -147,11 +149,26 @@ class App extends React.Component {
         console.log(this.state.items);
         return (
             <div>
+                <Navbar>
+                    <Navbar.Header>
+                        <Navbar.Brand>
+                            React Spring Simple App
+                        </Navbar.Brand>
+                    </Navbar.Header>
+                </Navbar>
+                <Grid>
+                    <Row>
+                        <Col md={4} sm={4}>
                 <CreateItemDialog attributesItem = {this.state.attributesItem} onCreateItem = {this.onCreateItem}/>
                 <CreateCustomerDialog attributesCustomer = {this.state.attributesCustomer} onCreateCustomer = {this.onCreateCustomer}/>
+                        </Col>
+                        <Col md={8} sm={8}>
                 <ItemList items={this.state.items} onDeleteItem = {this.onDeleteItem} onUpdateItem = {this.onUpdateItem} attributesItem = {this.state.attributesItem}/>
                 <CustomerList customers = {this.state.customers} onDeleteCustomer = {this.onDeleteCustomer}
                               onUpdateCustomer = {this.onUpdateCustomer} attributesCustomer = {this.state.attributesCustomer}/>
+                        </Col>
+                    </Row>
+                </Grid>
             </div>
         );
     }
@@ -163,7 +180,9 @@ class ItemList extends React.Component{
             <Item key={item.itemID}item={item} onDeleteItem={this.props.onDeleteItem} onUpdateItem={this.props.onUpdateItem} attributesItem = {this.props.attributesItem} />
         );
         return (
-            <table>
+            <div className="panel panel-default">
+                <div className="panel-heading"><h3>Items Table</h3></div>
+            <table className="table">
                 <tbody>
                 <tr>
                     <th>Item Name</th>
@@ -172,6 +191,7 @@ class ItemList extends React.Component{
                 {items}
                 </tbody>
             </table>
+            </div>
         )
     }
 }
@@ -182,15 +202,18 @@ class CustomerList extends React.Component{
                       attributesCustomer = {this.props.attributesCustomer}
             />);
         return (
-            <table>
-                <tbody>
-                <tr>
-                    <th>Customer Firstname</th>
-                    <th>Customer Lastname</th>
-                </tr>
-                {customers}
-                </tbody>
-            </table>
+            <div className ="panel panel-default">
+                <div className="panel-heading"><h3>Customer Table</h3></div>
+                <table className="table">
+                    <tbody>
+                        <tr>
+                            <th>Customer Firstname</th>
+                            <th>Customer Lastname</th>
+                        </tr>
+                    {customers}
+                    </tbody>
+                </table>
+            </div>
         )
     }
 }

@@ -32,12 +32,16 @@ public class Item {
         this.customerid = customerid;
     }
 
+    private String itemimagename;
+    public String getItemimagename(){return itemimagename;}
+    public void setItemimagename(String itemimagename){this.itemimagename = itemimagename;}
 
 
-    public Item(String itemname, String brandname, int customerid){
+    public Item(String itemname, String brandname, int customerid, String imagename){
         this.itemname = itemname;
         this.brandname = brandname;
         this.customerid = customerid;
+        this.itemimagename = imagename;
     }
     private Item(){}
 

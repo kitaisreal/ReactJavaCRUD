@@ -34,8 +34,9 @@ public class ItemController {
         JSONObject item = (JSONObject) parser.parse(json);
         String itemName = (String) item.get("itemName");
         String itemBrand = (String) item.get("brandName");
+        String itemImageName = (String) item.get("itemImageName");
         int customerId = Integer.parseInt(item.get("ownerID").toString());
-        factory.getItemService().createItem(new Item(itemName,itemBrand,customerId));
+        factory.getItemService().createItem(new Item(itemName,itemBrand,customerId, itemImageName));
     }
     @RequestMapping(value = "/items/update",method = RequestMethod.POST)
     @ResponseBody
@@ -46,10 +47,12 @@ public class ItemController {
         Item itemToUpdate = factory.getItemService().getItemByID((long) itemId);
         String itemName = (String) item.get("itemName");
         String itemBrand = (String) item.get("brandName");
+        String itemImageName = (String) item.get("itemImageName");
         int customerId = Integer.parseInt(item.get("ownerID").toString());
         itemToUpdate.setItemname(itemName);
         itemToUpdate.setBrandname(itemBrand);
         itemToUpdate.setCustomerid(customerId);
+        itemToUpdate.setItemimagename(itemImageName);
         factory.getItemService().updateItem(itemToUpdate);
     }
     @RequestMapping(value = "/items/delete/{id}", method = RequestMethod.GET)

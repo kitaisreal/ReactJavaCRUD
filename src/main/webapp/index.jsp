@@ -19,6 +19,5 @@
     <input type="submit" value="Upload">
     Press here to upload the file!
 </form>
-<image src="images/Bobby.jpg"/>
 </body>
 </html>

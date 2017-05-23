@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDom from "react-dom";
 import $ from "jquery";
-import { Navbar, NavItem, Nav, Grid, Row, Col } from "react-bootstrap";
+import { Navbar, NavItem, Nav, Grid, Row, Col ,FormControl ,Tooltip, Popover, Modal, Button, OverlayTrigger} from "react-bootstrap";
 
 class App extends React.Component {
     constructor(props) {
@@ -159,13 +159,15 @@ class App extends React.Component {
                 <Grid>
                     <Row>
                         <Col md={4} sm={4}>
-                <CreateItemDialog attributesItem = {this.state.attributesItem} onCreateItem = {this.onCreateItem}/>
-                <CreateCustomerDialog attributesCustomer = {this.state.attributesCustomer} onCreateCustomer = {this.onCreateCustomer}/>
+                            <CreateItemDialog attributesItem = {this.state.attributesItem} onCreateItem = {this.onCreateItem}/>
+                            <CreateCustomerDialog attributesCustomer = {this.state.attributesCustomer} onCreateCustomer = {this.onCreateCustomer}/>
                         </Col>
                         <Col md={8} sm={8}>
-                <ItemList items={this.state.items} onDeleteItem = {this.onDeleteItem} onUpdateItem = {this.onUpdateItem} attributesItem = {this.state.attributesItem}/>
-                <CustomerList customers = {this.state.customers} onDeleteCustomer = {this.onDeleteCustomer}
-                              onUpdateCustomer = {this.onUpdateCustomer} attributesCustomer = {this.state.attributesCustomer}/>
+                                <ItemList items={this.state.items} onDeleteItem = {this.onDeleteItem} onUpdateItem = {this.onUpdateItem} attributesItem = {this.state.attributesItem}/>
+                                <CustomerList customers = {this.state.customers}
+                                              onDeleteCustomer = {this.onDeleteCustomer}
+                                              onUpdateCustomer = {this.onUpdateCustomer}
+                                              attributesCustomer = {this.state.attributesCustomer}/>
                         </Col>
                     </Row>
                 </Grid>
@@ -452,4 +454,5 @@ class UpdateCustomerDialog extends React.Component {
     }
 
 }
+
 ReactDom.render(<App />, document.getElementById('app'));

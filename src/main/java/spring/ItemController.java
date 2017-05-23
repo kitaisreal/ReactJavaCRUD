@@ -51,7 +51,6 @@ public class ItemController {
         itemToUpdate.setBrandname(itemBrand);
         itemToUpdate.setCustomerid(customerId);
         factory.getItemService().updateItem(itemToUpdate);
-
     }
     @RequestMapping(value = "/items/delete/{id}", method = RequestMethod.GET)
     @ResponseBody

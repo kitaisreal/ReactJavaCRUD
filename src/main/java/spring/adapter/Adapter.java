@@ -1,6 +1,7 @@
 package spring.adapter;
 
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import spring.entities.Customer;
 import spring.entities.Item;
@@ -45,4 +46,22 @@ public class Adapter {
         customerJson.put("customerLastName", customer.getLastname());
         return customerJson;
     }
+    public JSONObject ItemsAttributes(){
+        JSONArray itemAttributes = new JSONArray();
+        itemAttributes.add("itemName");
+        itemAttributes.add("brandName");
+        itemAttributes.add("ownerID");
+        itemAttributes.add("itemImageName");
+        JSONObject responce = new JSONObject();
+        responce.put("attributesItem",itemAttributes);
+        return responce;
+    };
+    public JSONObject CustomerAttributes(){
+        JSONArray customerAttributes = new JSONArray();
+        customerAttributes.add("customerFirstName");
+        customerAttributes.add("customerLastName");
+        JSONObject responce = new JSONObject();
+        responce.put("attributesCustomer",customerAttributes);
+        return responce;
+    };
 }

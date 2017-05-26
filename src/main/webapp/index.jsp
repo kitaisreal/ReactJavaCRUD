@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<div id="app"></div>
+<div id="root"></div>
 <script src="${reactJS}"></script>
 
 <form method="POST" action="uploadImage" enctype="multipart/form-data">

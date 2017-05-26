@@ -21,13 +21,19 @@ public class ItemController {
         this.factory = factory;
     }
 
-    @RequestMapping(value = "/items", method = RequestMethod.GET)
+    @RequestMapping(value = "api/items", method = RequestMethod.GET)
     @ResponseBody
     public String getAllItems(){
         Adapter adapter = new Adapter();
         return adapter.ItemListToJson(factory.getItemService().getAllItems()).toString();
     }
-    @RequestMapping(value = "/items/add", method = RequestMethod.POST)
+    @RequestMapping(value ="api/items/attributes",method=RequestMethod.GET)
+    @ResponseBody
+    public String getItemAttributes(){
+        Adapter adapter = new Adapter();
+        return adapter.ItemsAttributes().toString();
+    };
+    @RequestMapping(value = "api/items/add", method = RequestMethod.POST)
     @ResponseBody
     public void addItem(@RequestBody String json) throws ParseException {
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
@@ -38,7 +44,7 @@ public class ItemController {
         int customerId = Integer.parseInt(item.get("ownerID").toString());
         factory.getItemService().createItem(new Item(itemName,itemBrand,customerId, itemImageName));
     }
-    @RequestMapping(value = "/items/update",method = RequestMethod.POST)
+    @RequestMapping(value = "api/items/update",method = RequestMethod.POST)
     @ResponseBody
     public void updateItem(@RequestBody String json) throws ParseException{
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
@@ -55,7 +61,7 @@ public class ItemController {
         itemToUpdate.setItemimagename(itemImageName);
         factory.getItemService().updateItem(itemToUpdate);
     }
-    @RequestMapping(value = "/items/delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "api/items/delete/{id}", method = RequestMethod.GET)
     @ResponseBody
     public  void deleteItemById(@PathVariable int id){
         factory.getItemService().deleteItem((long) id);

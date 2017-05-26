@@ -22,13 +22,19 @@ public class CustomerController {
         this.factory = factory;
     }
 
-    @RequestMapping(value = "/customers")
+    @RequestMapping(value = "api/customers")
     @ResponseBody
     public String getAllCustomer(){
         Adapter adapter = new Adapter();
         return adapter.CustomerListToJson(factory.getCustomerService().getAllCustomers()).toString();
     }
-    @RequestMapping(value = "/customers/add", method = RequestMethod.POST)
+    @RequestMapping(value ="api/customer/attributes",method=RequestMethod.GET)
+    @ResponseBody
+    public String getCustomerAttributes(){
+        Adapter adapter = new Adapter();
+        return adapter.CustomerAttributes().toString();
+    };
+    @RequestMapping(value = "api/customers/add", method = RequestMethod.POST)
     @ResponseBody
     public void addCustomer(@RequestBody String json) throws ParseException {
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
@@ -37,7 +43,7 @@ public class CustomerController {
         String customerLastName = (String) item.get("customerLastName");
         factory.getCustomerService().addCustomer(new Customer(customerFirstName,customerLastName));
     }
-    @RequestMapping(value = "/customers/update",method = RequestMethod.POST)
+    @RequestMapping(value = "api/customers/update",method = RequestMethod.POST)
     @ResponseBody
     public void updateCustomer(@RequestBody String json) throws ParseException{
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
@@ -54,7 +60,7 @@ public class CustomerController {
         factory.getCustomerService().updateCustomer(customerToUpdate);
         System.out.println("CUSTOMER UPDATED");
     }
-    @RequestMapping(value = "/customers/delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "api/customers/delete/{id}", method = RequestMethod.GET)
     @ResponseBody
     public  void deleteCustomerById(@PathVariable int id){
         factory.getCustomerService().deleteCustomer((long) id);

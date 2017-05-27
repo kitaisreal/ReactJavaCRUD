@@ -28,7 +28,7 @@ public class CustomerController {
         Adapter adapter = new Adapter();
         return adapter.CustomerListToJson(factory.getCustomerService().getAllCustomers()).toString();
     }
-    @RequestMapping(value ="api/customer/attributes",method=RequestMethod.GET)
+    @RequestMapping(value ="api/customers/attributes",method=RequestMethod.GET)
     @ResponseBody
     public String getCustomerAttributes(){
         Adapter adapter = new Adapter();

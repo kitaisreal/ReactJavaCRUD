@@ -1,11 +1,17 @@
 import React from "react";
 import ReactDom from "react-dom";
 import {connect} from "react-redux";
-export default class CreateItemDialog extends React.Component {
+import {itemCreate} from "../Actions/itemsActions";
+import {fetchAttributesItem} from "../Actions/itemsAttributesActions";
+class CreateItemDialog extends React.Component {
 
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentDidMount() {
+        this.props.onAttributesItemGet();
     }
 
     handleSubmit(e) {
@@ -14,7 +20,7 @@ export default class CreateItemDialog extends React.Component {
         this.props.attributesItem.forEach(attribute => {
             newItem[attribute] = ReactDom.findDOMNode(this.refs[attribute]).value.trim();
         });
-        this.props.onCreateItem(newItem);
+        this.props.onCreateItem(JSON.stringify(newItem));
         this.props.attributesItem.forEach(attribute => {
             ReactDom.findDOMNode(this.refs[attribute]).value = '';
         });
@@ -47,3 +53,19 @@ export default class CreateItemDialog extends React.Component {
         )
     }
 }
+const mapStateToProps=(state)=>{
+    return {
+        attributesItem:state.attributesItem
+    };
+};
+const mapDispatchToProps=(dispatch)=>{
+    return {
+        onAttributesItemGet:()=>{
+            dispatch(fetchAttributesItem())
+        },
+        onCreateItem:(item)=>{
+            dispatch(itemCreate(item))
+        }
+    };
+};
+export default connect(mapStateToProps,mapDispatchToProps)(CreateItemDialog)

@@ -6,12 +6,6 @@ import {connect} from 'react-redux';
 export default class Item extends React.Component{
     constructor(props) {
         super(props);
-        this.handleDelete = this.handleDelete.bind(this);
-    }
-
-    handleDelete() {
-        this.props.onDeleteItem(this.props.item);
-
     }
     render() {
         return (
@@ -19,10 +13,10 @@ export default class Item extends React.Component{
                 <td>{this.props.item.itemName}</td>
                 <td>{this.props.item.brandName}</td>
                 <td>
-                    <UpdateItemDialog item={this.props.item} attributesItem = {this.props.attributesItem} onUpdateItem = {this.props.onUpdateItem} />
+                    <UpdateItemDialog item={this.props.item}/>
                 </td>
                 <td>
-                    <button onClick={this.handleDelete}>Delete</button>
+                    <button onClick={this.props.onClick}>delete</button>
                 </td>
             </tr>
         )

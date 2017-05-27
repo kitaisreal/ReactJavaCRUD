@@ -4,10 +4,6 @@ import { Navbar, NavItem, Nav, Grid, Row, Col ,FormControl ,Tooltip, Popover, Mo
 export default class Customer extends React.Component{
     constructor(props){
         super(props);
-        this.handleDelete = this.handleDelete.bind(this);
-    }
-    handleDelete() {
-        this.props.onDeleteCustomer(this.props.customer);
     }
     render(){
         return (
@@ -15,10 +11,10 @@ export default class Customer extends React.Component{
                 <td>{this.props.customer.customerFirstName}</td>
                 <td>{this.props.customer.customerLastName}</td>
                 <td>
-                    <UpdateCustomerDialog customer={this.props.customer} attributesCustomer = {this.props.attributesCustomer} onUpdateCustomer ={this.props.onUpdateCustomer}/>
+                    <UpdateCustomerDialog customer={this.props.customer}/>
                 </td>
                 <td>
-                    <button onClick = {this.handleDelete}>Delete</button>
+                    <button onClick = {this.props.onClick}>Delete</button>
                 </td>
             </tr>
         )

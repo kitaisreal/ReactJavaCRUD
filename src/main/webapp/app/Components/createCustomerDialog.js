@@ -1,20 +1,26 @@
 import React from "react";
 import ReactDom from "react-dom";
-
-export default class CreateCustomerDialog extends React.Component {
-
+import {connect} from "react-redux";
+import {fetchAttributesCustomer} from "../Actions/customerAttributesActions";
+import {customerCreate} from "../Actions/customerActions";
+class CreateCustomerDialog extends React.Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentDidMount() {
+        this.props.onAttributesCustomerGet();
+    }
+
     handleSubmit(e) {
         e.preventDefault();
         const newCustomer = {};
+        console.log(this.props.attributesCustomer);
         this.props.attributesCustomer.forEach(attribute => {
             newCustomer[attribute] = ReactDom.findDOMNode(this.refs[attribute]).value.trim();
         });
-        this.props.onCreateCustomer(newCustomer);
+        this.props.onCreateCustomer(JSON.stringify(newCustomer));
         this.props.attributesCustomer.forEach(attribute => {
             ReactDom.findDOMNode(this.refs[attribute]).value = '';
         });
@@ -47,3 +53,19 @@ export default class CreateCustomerDialog extends React.Component {
         )
     }
 }
+const mapStateToProps=(state)=>{
+    return {
+        attributesCustomer:state.attributesCustomer
+    };
+};
+const mapDispatchToProps=(dispatch)=>{
+    return {
+        onAttributesCustomerGet:()=>{
+            dispatch(fetchAttributesCustomer())
+        },
+        onCreateCustomer:(customer)=>{
+            dispatch(customerCreate(customer))
+        }
+    };
+};
+export default connect(mapStateToProps,mapDispatchToProps)(CreateCustomerDialog)

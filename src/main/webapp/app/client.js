@@ -2,9 +2,6 @@ import 'whatwg-fetch'
 
 let apiRoot='api';
 export default class Client {
-    static letsCheck(){
-        console.log("LETS CHECK")
-    }
     static createItem(item){
         let fetchData ={
             method:'POST',

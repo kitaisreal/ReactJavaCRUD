@@ -5,7 +5,7 @@ import {createStore, combineReducers} from 'redux';
 const attributesItem =(state=[],action)=>{
     switch(action.type){
         case 'FETCH_ATTRIBUTES_ITEM':
-            return Object.assign({},state,action.attributesItem);
+            return action.attributesItem;
         default:
             return state;
     }

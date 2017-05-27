@@ -61,13 +61,13 @@ public class ItemImageUploadController {
     @ResponseBody
     public byte[] getImage(@PathVariable(value = "imageName") String imageName) throws IOException {
 
-        File serverFile = new File(ITEM_IMAGES_DIR_ABSOLUTE_PATH + imageName+ ".jpg");
+        File serverFile = new File(ITEM_IMAGES_DIR_ABSOLUTE_PATH + imageName);
         return Files.readAllBytes(serverFile.toPath());
     }
     @RequestMapping(value ="images/delete/{imageName}")
     @ResponseBody
     public void deleteImage(@PathVariable(value = "imageName") String imageName) throws IOException {
-        File fileToDelete = new File(ITEM_IMAGES_DIR_ABSOLUTE_PATH+imageName +".jpg");
+        File fileToDelete = new File(ITEM_IMAGES_DIR_ABSOLUTE_PATH+imageName);
         fileToDelete.delete();
     }
 }

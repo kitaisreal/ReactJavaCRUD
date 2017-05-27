@@ -1,12 +1,20 @@
 import React from "react";
 import ReactDom from "react-dom";
+import {fetchAttributesCustomer} from "../Actions/customerAttributesActions";
+import {customerUpdate} from "../Actions/customerActions";
+import {connect} from "react-redux";
 
-export default class UpdateCustomerDialog extends React.Component {
+class UpdateCustomerDialog extends React.Component {
 
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
+    componentDidMount() {
+        this.props.onAttributesCustomerGet();
+    }
+
 
     handleSubmit(e) {
         e.preventDefault();
@@ -15,7 +23,7 @@ export default class UpdateCustomerDialog extends React.Component {
         this.props.attributesCustomer.forEach(attribute => {
             updatedCustomer[attribute] = ReactDom.findDOMNode(this.refs[attribute]).value.trim();
         });
-        this.props.onUpdateCustomer(updatedCustomer);
+        this.props.onUpdateCustomer(JSON.stringify(updatedCustomer));
         window.location = "#";
     }
 
@@ -47,5 +55,20 @@ export default class UpdateCustomerDialog extends React.Component {
             </div>
         )
     }
-
 }
+const mapStateToProps=(state)=>{
+    return {
+        attributesCustomer:state.attributesCustomer
+    };
+};
+const mapDispatchToProps=(dispatch)=>{
+    return {
+        onAttributesCustomerGet:()=>{
+            dispatch(fetchAttributesCustomer())
+        },
+        onUpdateCustomer:(customer)=>{
+            dispatch(customerUpdate(customer))
+        }
+    };
+};
+export default connect(mapStateToProps,mapDispatchToProps)(UpdateCustomerDialog)

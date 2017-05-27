@@ -5,16 +5,15 @@ import {createStore, combineReducers} from 'redux';
 const items =(state=[],action)=>{
     switch(action.type){
         case 'FETCH_ITEMS':
-            return Object.assign({},state,action.items);
-        case 'ADD_ITEM':
-            
-            console.log("TRY TO ADD ITEM");
+            return action.items;
+        case 'CREATE_ITEM':
+            console.log("ITEM IS SUCESSFULLY CREATED");
             return state;
         case 'DELETE_ITEM':
-            console.log("TRY TO DELETE ITEM");
+            console.log("ITEM IS SUCESSFULLY DELETED");
             return state;
         case 'UPDATE_ITEM':
-            console.log("TRY TO UPDATE ITEM");
+            console.log("ITEM IS SUCESSFULLY UPDATED");
             return state;
         default:
             return state;

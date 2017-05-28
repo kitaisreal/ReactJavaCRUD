@@ -6,12 +6,9 @@ import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import spring.adapter.Adapter;
+import spring.adapter.AdapterJson;
 import spring.entities.Customer;
-import spring.entities.Item;
-import spring.services.CustomerService;
 import spring.services.Factory;
-import spring.services.ItemService;
 
 @Controller
 public class CustomerController {
@@ -27,13 +24,13 @@ public class CustomerController {
     @RequestMapping(value = "api/customers")
     @ResponseBody
     public String getAllCustomer(){
-        Adapter adapter = new Adapter();
+        AdapterJson adapter = new AdapterJson();
         return adapter.CustomerListToJson(factory.getCustomerService().getAllCustomers()).toString();
     }
     @RequestMapping(value ="api/customers/attributes",method=RequestMethod.GET)
     @ResponseBody
     public String getCustomerAttributes(){
-        Adapter adapter = new Adapter();
+        AdapterJson adapter = new AdapterJson();
         return adapter.CustomerAttributes().toString();
     };
     @RequestMapping(value = "api/customers/add", method = RequestMethod.POST)

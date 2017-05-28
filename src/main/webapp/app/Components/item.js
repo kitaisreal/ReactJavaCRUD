@@ -16,6 +16,9 @@ export default class Item extends React.Component{
                     <UpdateItemDialog item={this.props.item}/>
                 </td>
                 <td>
+                    <img className="image" src={`images/${this.props.item.itemImageName}`} />
+                </td>
+                <td>
                     <button onClick={this.props.onClick}>delete</button>
                 </td>
             </tr>

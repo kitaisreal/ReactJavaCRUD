@@ -31,9 +31,9 @@ export const itemsFetch =() =>{
             .then(json=>dispatch(receiveItemsGet(json)))
     };
 };
-export const itemCreate=(item)=>{
+export const itemCreate=(data)=>{
     return dispatch=> {
-        return fetch('/api/items/add',{method:'POST',body:item})
+        return fetch('/api/items/add',{method:'POST',body:data})
             .then(json=>dispatch(receiveItemCreate()))
     }
 };

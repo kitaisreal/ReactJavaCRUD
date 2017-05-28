@@ -15,15 +15,19 @@ class CreateItemDialog extends React.Component {
     }
 
     handleSubmit(e) {
+        const input = ReactDom.findDOMNode(this.refs["file"]);
         e.preventDefault();
         const newItem = {};
         this.props.attributesItem.forEach(attribute => {
             newItem[attribute] = ReactDom.findDOMNode(this.refs[attribute]).value.trim();
         });
-        this.props.onCreateItem(JSON.stringify(newItem));
         this.props.attributesItem.forEach(attribute => {
             ReactDom.findDOMNode(this.refs[attribute]).value = '';
         });
+        const data = new FormData();
+        data.append('item',JSON.stringify(newItem));
+        data.append('file',input.files[0]);
+        this.props.onCreateItem(data);
         window.location = "#";
     }
 
@@ -31,6 +35,7 @@ class CreateItemDialog extends React.Component {
         const inputs = this.props.attributesItem.map(attribute =>
             <p key={attribute}>
                 <input type="text" placeholder={attribute} ref={attribute} className="field"/>
+
             </p>
         );
         return (
@@ -43,8 +48,9 @@ class CreateItemDialog extends React.Component {
 
                         <h2>Create new item</h2>
 
-                        <form>
+                        <form  >
                             {inputs}
+                            <input type="file" ref="file"/>
                             <button onClick={this.handleSubmit}>Create</button>
                         </form>
                     </div>
@@ -63,8 +69,8 @@ const mapDispatchToProps=(dispatch)=>{
         onAttributesItemGet:()=>{
             dispatch(fetchAttributesItem())
         },
-        onCreateItem:(item)=>{
-            dispatch(itemCreate(item))
+        onCreateItem:(data)=>{
+            dispatch(itemCreate(data))
         }
     };
 };

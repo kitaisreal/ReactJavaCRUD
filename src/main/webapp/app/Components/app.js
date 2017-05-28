@@ -5,10 +5,10 @@ import CreateCustomerDialog from './createCustomerDialog.js';
 import ItemList from './itemList'
 import CustomerList from './customerList'
 import {Header} from './Header'
+
 export default class App extends React.Component {
     constructor(props) {
         super(props);
-
     }
     render() {
         return (

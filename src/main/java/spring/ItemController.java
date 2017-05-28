@@ -7,18 +7,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import spring.adapter.Adapter;
 import spring.entities.Item;
-import spring.services.CustomerService;
 import spring.services.Factory;
-import spring.services.ItemService;
 
 @Controller
 public class ItemController {
 
     private final Factory factory;
-
+    private final SocketEvent socketEvent;
     @Autowired
-    public ItemController(Factory factory) {
+    public ItemController(Factory factory,SocketEvent socketEvent) {
         this.factory = factory;
+        this.socketEvent=socketEvent;
     }
 
     @RequestMapping(value = "api/items", method = RequestMethod.GET)
@@ -33,6 +32,14 @@ public class ItemController {
         Adapter adapter = new Adapter();
         return adapter.ItemsAttributes().toString();
     };
+    @RequestMapping(value = "api/items/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public  String getItemById(@PathVariable int id){
+        Adapter adapter = new Adapter();
+        Item item = factory.getItemService().getItemByID((long) id);
+        return adapter.singleItemToJson(item).toString();
+    }
+
     @RequestMapping(value = "api/items/add", method = RequestMethod.POST)
     @ResponseBody
     public void addItem(@RequestBody String json) throws ParseException {
@@ -43,6 +50,7 @@ public class ItemController {
         String itemImageName = (String) item.get("itemImageName");
         int customerId = Integer.parseInt(item.get("ownerID").toString());
         factory.getItemService().createItem(new Item(itemName,itemBrand,customerId, itemImageName));
+        socketEvent.sendItemEvent("ITEM_ADDED_EVENT");
     }
     @RequestMapping(value = "api/items/update",method = RequestMethod.POST)
     @ResponseBody
@@ -60,10 +68,13 @@ public class ItemController {
         itemToUpdate.setCustomerid(customerId);
         itemToUpdate.setItemimagename(itemImageName);
         factory.getItemService().updateItem(itemToUpdate);
+        socketEvent.sendItemEvent("ITEM_UPDATED_EVENT");
     }
+
     @RequestMapping(value = "api/items/delete/{id}", method = RequestMethod.GET)
     @ResponseBody
     public  void deleteItemById(@PathVariable int id){
         factory.getItemService().deleteItem((long) id);
+        socketEvent.sendItemEvent("ITEM_DELETED_EVENT");
     }
 }

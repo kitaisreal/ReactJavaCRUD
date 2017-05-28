@@ -16,10 +16,12 @@ import spring.services.ItemService;
 @Controller
 public class CustomerController {
     private final Factory factory;
+    private final SocketEvent socketEvent;
 
     @Autowired
-    public CustomerController(Factory factory) {
+    public CustomerController(Factory factory,SocketEvent socketEvent) {
         this.factory = factory;
+        this.socketEvent=socketEvent;
     }
 
     @RequestMapping(value = "api/customers")
@@ -42,6 +44,7 @@ public class CustomerController {
         String customerFirstName = (String) item.get("customerFirstName");
         String customerLastName = (String) item.get("customerLastName");
         factory.getCustomerService().addCustomer(new Customer(customerFirstName,customerLastName));
+        socketEvent.sendCustomerEvent("CUSTOMER_ADDED_EVENT");
     }
     @RequestMapping(value = "api/customers/update",method = RequestMethod.POST)
     @ResponseBody
@@ -59,10 +62,13 @@ public class CustomerController {
         customerToUpdate.setLastname(customerLastName);
         factory.getCustomerService().updateCustomer(customerToUpdate);
         System.out.println("CUSTOMER UPDATED");
+
+        socketEvent.sendCustomerEvent("CUSTOMER_UPDATED_EVENT");
     }
     @RequestMapping(value = "api/customers/delete/{id}", method = RequestMethod.GET)
     @ResponseBody
     public  void deleteCustomerById(@PathVariable int id){
         factory.getCustomerService().deleteCustomer((long) id);
+        socketEvent.sendCustomerEvent("CUSTOMER_DELETED_EVENT");
     }
 }

@@ -8,6 +8,6 @@ import spring.entities.Item;
 public interface ImageService {
     String getAbsolutePath();
     void createItemImage(MultipartFile file, Item item);
-    void updateItemImage(MultipartFile file,Item item);
+    void updateItemImage(MultipartFile file,Item item, Item olditem);
     void deleteItemImage(Item item);
 }

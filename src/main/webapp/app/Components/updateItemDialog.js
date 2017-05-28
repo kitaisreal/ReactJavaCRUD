@@ -16,12 +16,18 @@ class UpdateItemDialog extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
+        const input = ReactDom.findDOMNode(this.refs["file"]);
         const updatedItem = {};
         updatedItem["itemID"] = this.props.item["itemID"];
         this.props.attributesItem.forEach(attribute => {
             updatedItem[attribute] = ReactDom.findDOMNode(this.refs[attribute]).value.trim();
         });
-        this.props.onUpdateItem(JSON.stringify(updatedItem));
+        const data = new FormData();
+        data.append('item',JSON.stringify(updatedItem));
+        data.append('file',input.files[0]);
+        console.log("TRY TO UPDATE ITEM WITH THIS DATA")
+        console.log(data)
+        this.props.onUpdateItem(data);
         window.location = "#";
     }
 
@@ -45,6 +51,7 @@ class UpdateItemDialog extends React.Component {
 
                         <form>
                             {inputs}
+                            <input type="file" ref="file"/>
                             <button onClick={this.handleSubmit}>Update</button>
                         </form>
                     </div>
@@ -63,8 +70,8 @@ const mapDispatchToProps=(dispatch)=>{
         onAttributesItemGet:()=>{
             dispatch(fetchAttributesItem())
         },
-        onUpdateItem:(item)=>{
-            dispatch(itemUpdate(item))
+        onUpdateItem:(data)=>{
+            dispatch(itemUpdate(data))
         }
     };
 };

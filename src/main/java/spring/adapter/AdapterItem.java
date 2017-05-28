@@ -3,6 +3,7 @@ package spring.adapter;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import spring.entities.Item;
+import java.util.UUID;
 
 public class AdapterItem {
     public Item JsonItemToItem(String json){
@@ -15,7 +16,9 @@ public class AdapterItem {
         }
         String itemName = (String) jsonItem.get("itemName");
         String itemBrand = (String) jsonItem.get("brandName");
-        String itemImageName = itemName+itemBrand+"image";
+        String itemId = (String) jsonItem.get("itemId");
+        String uuid = UUID.randomUUID().toString();
+        String itemImageName = uuid;
         int customerId = Integer.parseInt(jsonItem.get("ownerID").toString());
         Item item = new Item(itemName,itemBrand,customerId, itemImageName);
         return item;

@@ -14,6 +14,7 @@ import spring.services.Factory;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.UUID;
 
 @Controller
 public class ItemController {
@@ -49,20 +50,21 @@ public class ItemController {
     }
     @RequestMapping(value = "api/items/update",method = RequestMethod.POST)
     @ResponseBody
-    public void updateItem(@RequestBody String json) throws ParseException{
+    public void updateItem(@RequestParam("item") String json ,@RequestParam("file") MultipartFile file) throws ParseException{
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
         JSONObject item = (JSONObject) parser.parse(json);
         int itemId = Integer.parseInt(item.get("itemID").toString());
+        Item oldItem = factory.getItemService().getItemByID((long) itemId);
         Item itemToUpdate = factory.getItemService().getItemByID((long) itemId);
         String itemName = (String) item.get("itemName");
         String itemBrand = (String) item.get("brandName");
-        String itemImageName = "imageName";
         int customerId = Integer.parseInt(item.get("ownerID").toString());
         itemToUpdate.setItemname(itemName);
         itemToUpdate.setBrandname(itemBrand);
         itemToUpdate.setCustomerid(customerId);
-        itemToUpdate.setItemimagename(itemImageName);
+        itemToUpdate.setItemimagename(UUID.randomUUID().toString());
         factory.getItemService().updateItem(itemToUpdate);
+        factory.getImageService().updateItemImage(file,itemToUpdate,oldItem);
         socketEvent.sendItemEvent("ITEM_UPDATED_EVENT");
     }
 

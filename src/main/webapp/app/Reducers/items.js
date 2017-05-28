@@ -5,6 +5,7 @@ import {createStore, combineReducers} from 'redux';
 const items =(state=[],action)=>{
     switch(action.type){
         case 'FETCH_ITEMS':
+            console.log("ITEMS FETCHED CHECK FOR SOCKETS");
             return action.items;
         case 'CREATE_ITEM':
             console.log("ITEM IS SUCESSFULLY CREATED");

@@ -43,9 +43,9 @@ export const itemDelete=(id)=>{
             .then(response=>dispatch(receiveItemDelete()))
     }
 };
-export const itemUpdate=(item)=>{
+export const itemUpdate=(data)=>{
     return dispatch=> {
-        return fetch('/api/items/update',{method:'POST',body:item})
+        return fetch('/api/items/update',{method:'POST',body:data})
             .then(response=>dispatch(receiveItemUpdate()))
     }
 };

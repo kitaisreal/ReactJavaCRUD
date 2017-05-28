@@ -3,6 +3,7 @@ import ReactDom from "react-dom";
 import {connect} from "react-redux";
 import {fetchAttributesCustomer} from "../Actions/customerAttributesActions";
 import {customerCreate} from "../Actions/customerActions";
+
 class CreateCustomerDialog extends React.Component {
     constructor(props) {
         super(props);

@@ -5,7 +5,6 @@
     <title>Title</title>
     <spring:url value="/generated/app-bundle.js" var="reactJS" />
     <spring:url value="/css/main.css" var ="modalStyle"/>
-    <script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/main.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
@@ -14,12 +13,5 @@
 <div id="root"></div>
 <script src="${reactJS}"></script>
 
-<form method="POST" action="uploadImage" enctype="multipart/form-data">
-    File to upload: <input type="file" name="file"><br />
-
-    <input type="submit" value="Upload">
-    Press here to upload the file!
-</form>
-<image src="/images/Bobby"/>
 </body>
 </html>

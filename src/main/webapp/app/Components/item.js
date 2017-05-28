@@ -1,6 +1,6 @@
 import React from "react";
-import UpdateItemDialog from "./updateItemDialog"
-import { Navbar, NavItem, Nav, Grid, Row, Col ,FormControl ,Tooltip, Popover, Modal, Button, OverlayTrigger} from "react-bootstrap";
+import UpdateItemModal from "./updateItemModal"
+import { Navbar, NavItem, Nav, Grid, Row, Col ,FormControl ,Tooltip, Popover, Modal, Button, OverlayTrigger,Thumbnail} from "react-bootstrap";
 import {connect} from 'react-redux';
 
 export default class Item extends React.Component{
@@ -13,7 +13,7 @@ export default class Item extends React.Component{
                 <td>{this.props.item.itemName}</td>
                 <td>{this.props.item.brandName}</td>
                 <td>
-                    <UpdateItemDialog item={this.props.item}/>
+                    <UpdateItemModal item={this.props.item}/>
                 </td>
                 <td>
                     <img className="image" src={`images/${this.props.item.itemImageName}`} />

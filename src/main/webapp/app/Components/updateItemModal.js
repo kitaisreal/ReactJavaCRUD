@@ -1,17 +1,27 @@
 import React from "react";
 import ReactDom from "react-dom";
 import {connect} from "react-redux";
-import {itemsFetch, itemUpdate} from "../Actions/itemsActions";
+import { Navbar, NavItem, Nav, Grid, Row, Col ,FormControl ,Tooltip, Popover, Modal, Button, OverlayTrigger} from "react-bootstrap";
 import {fetchAttributesItem} from "../Actions/itemsAttributesActions";
-class UpdateItemDialog extends React.Component {
-
+import {itemUpdate} from "../Actions/itemsActions";
+class UpdateItemModal extends React.Component{
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.state = {showModal:false};
+        this.close = this.close.bind(this);
+        this.open = this.open.bind(this);
     }
-
     componentDidMount() {
         this.props.onAttributesItemGet();
+    }
+
+    close() {
+        this.setState({ showModal: false });
+    }
+
+    open() {
+        this.setState({ showModal: true });
     }
 
     handleSubmit(e) {
@@ -25,10 +35,7 @@ class UpdateItemDialog extends React.Component {
         const data = new FormData();
         data.append('item',JSON.stringify(updatedItem));
         data.append('file',input.files[0]);
-        console.log("TRY TO UPDATE ITEM WITH THIS DATA")
-        console.log(data)
         this.props.onUpdateItem(data);
-        window.location = "#";
     }
 
     render() {
@@ -37,27 +44,34 @@ class UpdateItemDialog extends React.Component {
                 <input type="text" placeholder={attribute} defaultValue = {this.props.item[attribute]} ref={attribute} className="field"/>
             </p>
         );
-        var dialogId = "updateItem " + this.props.item.itemID;
-
         return (
             <div>
-                <a href={"#" + dialogId}>Update</a>
+                <Button
+                    bsStyle="primary"
+                    bsSize="large"
+                    onClick={this.open}
+                >
+                    Update Item
+                </Button>
 
-                <div id={dialogId} className="modalDialog">
-                    <div>
-                        <a href="#" title="Close" className="close">X</a>
-
+                <Modal show={this.state.showModal} onHide={this.close}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Item Add</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
                         <h2>Update Item</h2>
-
                         <form>
                             {inputs}
                             <input type="file" ref="file"/>
                             <button onClick={this.handleSubmit}>Update</button>
                         </form>
-                    </div>
-                </div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={this.close}>Close</Button>
+                    </Modal.Footer>
+                </Modal>
             </div>
-        )
+        );
     }
 }
 const mapStateToProps=(state)=>{
@@ -75,4 +89,4 @@ const mapDispatchToProps=(dispatch)=>{
         }
     };
 };
-export default connect(mapStateToProps,mapDispatchToProps)(UpdateItemDialog)
+export default connect(mapStateToProps,mapDispatchToProps)(UpdateItemModal)

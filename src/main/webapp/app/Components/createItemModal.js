@@ -1,17 +1,29 @@
 import React from "react";
 import ReactDom from "react-dom";
 import {connect} from "react-redux";
+import { Navbar, NavItem, Nav, Grid, Row, Col ,FormControl ,Tooltip, Popover, Modal, Button, OverlayTrigger} from "react-bootstrap";
 import {itemCreate} from "../Actions/itemsActions";
 import {fetchAttributesItem} from "../Actions/itemsAttributesActions";
-class CreateItemDialog extends React.Component {
 
+
+class CreateItemModal extends React.Component{
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.state = {showModal:false};
+        this.close = this.close.bind(this);
+        this.open = this.open.bind(this);
     }
-
     componentDidMount() {
         this.props.onAttributesItemGet();
+    }
+
+    close() {
+        this.setState({ showModal: false });
+    }
+
+    open() {
+        this.setState({ showModal: true });
     }
 
     handleSubmit(e) {
@@ -28,7 +40,6 @@ class CreateItemDialog extends React.Component {
         data.append('item',JSON.stringify(newItem));
         data.append('file',input.files[0]);
         this.props.onCreateItem(data);
-        window.location = "#";
     }
 
     render() {
@@ -40,23 +51,31 @@ class CreateItemDialog extends React.Component {
         );
         return (
             <div>
-                <a href="#createItem">Create Item</a>
+                <Button
+                    bsStyle="primary"
+                    bsSize="large"
+                    onClick={this.open}
+                >
+                    Add Item
+                </Button>
 
-                <div id="createItem" className="modalDialog">
-                    <div>
-                        <a href="#" title="Close" className="close">X</a>
-
-                        <h2>Create new item</h2>
-
+                <Modal show={this.state.showModal} onHide={this.close}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Item Add</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
                         <form  >
                             {inputs}
                             <input type="file" ref="file"/>
                             <button onClick={this.handleSubmit}>Create</button>
                         </form>
-                    </div>
-                </div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={this.close}>Close</Button>
+                    </Modal.Footer>
+                </Modal>
             </div>
-        )
+        );
     }
 }
 const mapStateToProps=(state)=>{
@@ -74,4 +93,4 @@ const mapDispatchToProps=(dispatch)=>{
         }
     };
 };
-export default connect(mapStateToProps,mapDispatchToProps)(CreateItemDialog)
+export default connect(mapStateToProps,mapDispatchToProps)(CreateItemModal)

@@ -11,7 +11,8 @@ const initialState = {
     items:[],
     customers:[],
     attributesItem:[],
-    attributesCustomer:[]
+    attributesCustomer:[],
+    singleItem:{}
 };
 
 const configureStore =()=>{

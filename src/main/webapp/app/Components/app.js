@@ -6,6 +6,7 @@ import CustomerList from './customerList'
 import {Header} from './Header'
 import {BrowserRouter,Route,Link} from 'react-router-dom';
 import CreateItemModal from "./createItemModal";
+import singleItem from "./singleItem";
 export default class App extends React.Component {
     constructor(props) {
         super(props);
@@ -24,6 +25,7 @@ export default class App extends React.Component {
                         <Col md={8} sm={8}>
                             <Route path ='/items' component ={ItemList} />
                             <Route path ='/cusomers' component ={CustomerList}/>
+                            <Route path='/items/:id' component ={singleItem}/>
                         </Col>
                     </Row>
                 </Grid>

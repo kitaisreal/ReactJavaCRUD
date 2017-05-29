@@ -30,11 +30,6 @@ public class AdapterJson {
         return responce;
 
     }
-    public JSONObject singleItemToJson(Item item){
-        JSONObject response = new JSONObject();
-        response.put("item",ItemToJSon(item));
-        return response;
-    }
     public JSONObject ItemToJSon(Item item){
         JSONObject itemJson = new JSONObject();
         itemJson.put("itemID", item.getId());

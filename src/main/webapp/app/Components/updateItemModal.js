@@ -34,6 +34,7 @@ class UpdateItemModal extends React.Component{
         });
         const data = new FormData();
         data.append('item',JSON.stringify(updatedItem));
+
         data.append('file',input.files[0]);
         this.props.onUpdateItem(data);
     }
@@ -63,10 +64,10 @@ class UpdateItemModal extends React.Component{
                         <form>
                             {inputs}
                             <input type="file" ref="file"/>
-                            <button onClick={this.handleSubmit}>Update</button>
                         </form>
                     </Modal.Body>
                     <Modal.Footer>
+                        <Button onClick={this.handleSubmit}>UPDATE</Button>
                         <Button onClick={this.close}>Close</Button>
                     </Modal.Footer>
                 </Modal>

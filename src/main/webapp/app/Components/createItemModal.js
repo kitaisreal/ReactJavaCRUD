@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import { Navbar, NavItem, Nav, Grid, Row, Col ,FormControl ,Tooltip, Popover, Modal, Button, OverlayTrigger} from "react-bootstrap";
 import {itemCreate} from "../Actions/itemsActions";
 import {fetchAttributesItem} from "../Actions/itemsAttributesActions";
+import {singleItemFetch} from "../Actions/singleItemActions";
 
 
 class CreateItemModal extends React.Component{
@@ -16,6 +17,7 @@ class CreateItemModal extends React.Component{
     }
     componentDidMount() {
         this.props.onAttributesItemGet();
+        this.props.onSingleItemGet(97);
     }
 
     close() {
@@ -64,13 +66,14 @@ class CreateItemModal extends React.Component{
                         <Modal.Title>Item Add</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <form  >
+                        <div>
+
                             {inputs}
                             <input type="file" ref="file"/>
-                            <button onClick={this.handleSubmit}>Create</button>
-                        </form>
+                        </div>
                     </Modal.Body>
                     <Modal.Footer>
+                        <Button onClick={this.handleSubmit}>Create</Button>
                         <Button onClick={this.close}>Close</Button>
                     </Modal.Footer>
                 </Modal>
@@ -87,6 +90,9 @@ const mapDispatchToProps=(dispatch)=>{
     return {
         onAttributesItemGet:()=>{
             dispatch(fetchAttributesItem())
+        },
+        onSingleItemGet:(id)=>{
+            dispatch(singleItemFetch(id))
         },
         onCreateItem:(data)=>{
             dispatch(itemCreate(data))

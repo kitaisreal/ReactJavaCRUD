@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import spring.adapter.AdapterItem;
 import spring.adapter.AdapterJson;
+import spring.entities.Customer;
 import spring.entities.Item;
 import spring.services.Factory;
 
@@ -50,7 +51,7 @@ public class ItemController {
     }
     @RequestMapping(value = "api/items/update",method = RequestMethod.POST)
     @ResponseBody
-    public void updateItem(@RequestParam("item") String json ,@RequestParam("file") MultipartFile file) throws ParseException{
+    public void updateItem(@RequestParam("item") String json ,@RequestParam(value = "file") MultipartFile file) throws ParseException{
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
         JSONObject item = (JSONObject) parser.parse(json);
         int itemId = Integer.parseInt(item.get("itemID").toString());
@@ -64,10 +65,22 @@ public class ItemController {
         itemToUpdate.setCustomerid(customerId);
         itemToUpdate.setItemimagename(UUID.randomUUID().toString());
         factory.getItemService().updateItem(itemToUpdate);
-        factory.getImageService().updateItemImage(file,itemToUpdate,oldItem);
+        factory.getImageService().updateItemImage(file, itemToUpdate, oldItem);
         socketEvent.sendItemEvent("ITEM_UPDATED_EVENT");
     }
-
+    @RequestMapping(value ="api/items/get/{id}",method=RequestMethod.GET)
+    @ResponseBody
+    public String getItemById(@PathVariable int id){
+        AdapterJson adapterJson = new AdapterJson();
+        Item item = factory.getItemService().getItemByID((long)(id));
+        try {
+            JSONObject json = adapterJson.ItemToJSon(item);
+            json.put("customerFullName","CUSTOMERFULLNAME");
+            return json.toString();
+        } catch (NullPointerException e){
+            return "NO ITEM WITH THIS ID";
+        }
+    }
     @RequestMapping(value = "api/items/delete/{id}", method = RequestMethod.GET)
     @ResponseBody
     public  void deleteItemById(@PathVariable int id){

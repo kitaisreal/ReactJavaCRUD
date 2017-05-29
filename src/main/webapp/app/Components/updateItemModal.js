@@ -34,9 +34,9 @@ class UpdateItemModal extends React.Component{
         });
         const data = new FormData();
         data.append('item',JSON.stringify(updatedItem));
-
         data.append('file',input.files[0]);
         this.props.onUpdateItem(data);
+        this.props.refreshSingleItem;
     }
 
     render() {

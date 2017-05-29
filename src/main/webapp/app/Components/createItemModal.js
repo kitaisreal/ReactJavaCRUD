@@ -40,6 +40,7 @@ class CreateItemModal extends React.Component{
         data.append('item',JSON.stringify(newItem));
         data.append('file',input.files[0]);
         this.props.onCreateItem(data);
+        this.close();
     }
 
     render() {

@@ -1,0 +1,11 @@
+.thumbnail{
+    width: 300px;
+    height: 400px;
+    overflow: auto;
+}
+
+.thumbnail img{
+    width: 242px;
+    height: 200px;
+    display: block;
+}

@@ -5,24 +5,38 @@ import {connect} from "react-redux";
 import {itemsFetch} from '../Actions/itemsActions.js'
 import { Navbar, NavItem, Nav, Grid, Row, Col ,FormControl ,Tooltip, Popover, Modal, Button, OverlayTrigger} from "react-bootstrap";
 import {itemDelete} from "../Actions/itemsActions";
+import SearchBar from './searchBar';
 class ItemList extends React.Component{
+    constructor(props) {
+        super(props);
+    }
     componentDidMount() {
         this.props.onItemsGet();
     }
     render() {
-        let items = this.props.items.map(item =>
-            <Item key={item.itemID} item={item} />
+        let filteredItems = this.props.items.filter(
+            (item) =>{
+                return item.itemFullName.indexOf(this.props.search) !==-1;
+            }
         );
         return (
-            <div className="row">
-                    {items}
+            <div>
+                <SearchBar/>
+                <div>
+                    <div className="row">
+                            {filteredItems.map(item =>
+                                <Item key={item.itemID} item={item} />
+                            )}
+                    </div>
+                </div>
             </div>
         )
     }
 }
 const mapStateToProps=(state)=>{
     return {
-        items:state.items
+        items:state.items,
+        search:state.search
     };
 };
 const mapDispatchToProps=(dispatch)=>{

@@ -8,19 +8,13 @@ export default class Item extends React.Component{
         super(props);
     }
     render() {
-        let itemFullName = this.props.item.itemName + " " + this.props.item.brandName;
         return (
             <div className="col-xs-6 col-md-3">
 
                     <Link to={`/item/${this.props.item.itemID}`} className="thumbnail">
                         <img src={`images/${this.props.item.itemImageName}`}/>
                         <div className="caption">
-                            <h4>{itemFullName}</h4>
-                            <Button onClick={()=>{
-                                this.props.onItemDelete(this.props.item.itemID);
-                                this.props.history.push("/items")}}>
-                                Delete Item
-                            </Button>
+                            <h4>{this.props.item.itemFullName}</h4>
                         </div>
                     </Link>
             </div>

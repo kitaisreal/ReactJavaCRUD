@@ -90,7 +90,6 @@ public class ItemController {
     @RequestMapping(value = "**/images/{imageName}", method = RequestMethod.GET)
     @ResponseBody
     public byte[] getImage(@PathVariable(value = "imageName") String imageName) throws IOException {
-        System.out.println("TRY TO GET IMAGE SUKA");
         File serverFile = new File(factory.getImageService().getAbsolutePath() + imageName);
         if (serverFile.exists()) return Files.readAllBytes(serverFile.toPath());
         return new byte[0];

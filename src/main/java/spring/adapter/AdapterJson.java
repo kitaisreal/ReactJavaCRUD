@@ -37,6 +37,7 @@ public class AdapterJson {
         itemJson.put("brandName",item.getBrandname());
         itemJson.put("ownerID", item.getCustomerid());
         itemJson.put("itemImageName", item.getItemimagename());
+        itemJson.put("itemFullName",item.getItemname()+ " " + item.getBrandname());
         return itemJson;
     }
     public JSONObject CustomerToJson(Customer customer){

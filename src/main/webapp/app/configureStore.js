@@ -12,7 +12,8 @@ const initialState = {
     customers:[],
     attributesItem:[],
     attributesCustomer:[],
-    singleItem:{}
+    singleItem:{},
+    search:''
 };
 
 const configureStore =()=>{

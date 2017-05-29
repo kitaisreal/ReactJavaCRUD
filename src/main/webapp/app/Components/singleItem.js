@@ -13,25 +13,27 @@ class SingleItem extends React.Component {
     }
     render() {
         return (
-            <div>
-                <Col md={4} sm={4}>
-                    <img className="image" src={`images/${this.props.singleItem.itemImageName}`} />
-                </Col>
-                <Col md={8} sm={8}>
-                    <p>{this.props.singleItem.itemName}</p>
-                    <p>{this.props.singleItem.brandName}</p>
-                    <p>{this.props.singleItem.customerFullName}</p>
-                    <Button onClick={()=>{
-                        this.props.onItemDelete(this.props.singleItem.itemID);
-                        this.props.history.push("/items")}}>
-                            Delete Item
-                    </Button>
-                    <UpdateItemModal
-                        item={this.props.singleItem}
-                        refreshSingleItem={this.props.onSingleItemGet(this.props.match.params.id)}
-                    />
-                </Col>
-            </div>
+            <Grid>
+                <Row>
+                    <Col md={8} sm={8}>
+                        <img className="image" src={`images/${this.props.singleItem.itemImageName}`} />
+                    </Col>
+                    <Col md={4} sm={4}>
+                        <p>ItemName:{this.props.singleItem.itemName}</p>
+                        <p>BrandName:{this.props.singleItem.brandName}</p>
+                        <p>CustomerFullName:{this.props.singleItem.customerFullName}</p>
+                        <Button onClick={()=>{
+                            this.props.onItemDelete(this.props.singleItem.itemID);
+                            this.props.history.push("/items")}}>
+                                Delete Item
+                        </Button>
+                        <UpdateItemModal
+                            item={this.props.singleItem}
+                            refreshSingleItem={this.props.onSingleItemGet(this.props.match.params.id)}
+                        />
+                    </Col>
+                </Row>
+            </Grid>
         );
     }
 }

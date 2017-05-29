@@ -37,6 +37,7 @@ class UpdateItemModal extends React.Component{
         data.append('file',input.files[0]);
         this.props.onUpdateItem(data);
         this.props.refreshSingleItem;
+        this.close();
     }
 
     render() {
@@ -49,7 +50,6 @@ class UpdateItemModal extends React.Component{
             <div>
                 <Button
                     bsStyle="primary"
-                    bsSize="large"
                     onClick={this.open}
                 >
                     Update Item

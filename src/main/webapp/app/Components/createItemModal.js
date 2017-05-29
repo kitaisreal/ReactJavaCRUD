@@ -44,11 +44,11 @@ class CreateItemModal extends React.Component{
     }
 
     render() {
-        const inputs = this.props.attributesItem.map(attribute =>
-            <p key={attribute}>
-                <input type="text" placeholder={attribute} ref={attribute} className="field"/>
-
-            </p>
+        const inputs = this.props.attributesItem.map(attribute => (
+                <p key={attribute}>
+                    <input type="text" placeholder={attribute} ref={attribute} className="field"/>
+                </p>
+            )
         );
         return (
             <div>
@@ -66,7 +66,6 @@ class CreateItemModal extends React.Component{
                     </Modal.Header>
                     <Modal.Body>
                         <div>
-
                             {inputs}
                             <input type="file" ref="file"/>
                         </div>

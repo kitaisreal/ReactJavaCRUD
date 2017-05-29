@@ -2,21 +2,16 @@ import {Provider} from 'react-redux';
 import {Router, Route, browserHistory} from 'react-router';
 import {createStore, combineReducers} from 'redux';
 
-const customers=(state=[],action)=> {
+const customer=(state=[],action)=> {
     switch (action.type) {
-        case 'FETCH_CUSTOMERS':
-            return action.customers;
-        case 'ADD_CUSTOMER':
+        case 'CUSTOMER_REGISTRATION':
+            console.log("REGISTRATION SUCCESS");
             return state;
-        //
-        case 'DELETE_CUSTOMER':
-            return state;
-        //
-        case 'UPDATE_CUSTOMER':
-            return state;
-        //ACTION
+        case 'CUSTOMER_AUTHORIZATION':
+            console.log("AUTHORIZATION SUCCESS");
+            return action.customer;
         default:
             return state;
     }
 };
-export default customers;
+export default customer;

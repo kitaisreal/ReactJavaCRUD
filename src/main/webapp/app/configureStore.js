@@ -9,7 +9,7 @@ import {itemsFetch} from "./Actions/itemsActions";
 const middleware = [thunk];
 const initialState = {
     items:[],
-    customers:[],
+    customer:{},
     attributesItem:[],
     attributesCustomer:[],
     singleItem:{},

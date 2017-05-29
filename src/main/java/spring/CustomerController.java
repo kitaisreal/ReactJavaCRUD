@@ -4,11 +4,15 @@ package spring;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import spring.adapter.AdapterJson;
 import spring.entities.Customer;
 import spring.services.Factory;
+
+import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class CustomerController {
@@ -21,51 +25,63 @@ public class CustomerController {
         this.socketEvent=socketEvent;
     }
 
-    @RequestMapping(value = "api/customers")
+    @RequestMapping(value = "**/api/customer/authorization", method=RequestMethod.POST)
     @ResponseBody
-    public String getAllCustomer(){
-        AdapterJson adapter = new AdapterJson();
-        return adapter.CustomerListToJson(factory.getCustomerService().getAllCustomers()).toString();
+    public String customerAuthorization(@RequestBody String json) throws ParseException{
+        org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
+        JSONObject customer = (JSONObject) parser.parse(json);
+        System.out.println(customer);
+        List<Customer> customers= factory.getCustomerService().getAllCustomers();
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String email = (String) customer.get("email");
+        String password= (String) customer.get("password");
+        for (Customer cs:customers){
+            if(Objects.equals(cs.getEmail(), email) && passwordEncoder.matches(password,cs.getPassword())){
+                JSONObject responseCustomer = new JSONObject();
+                responseCustomer.put("CustomerID",cs.getId());
+                responseCustomer.put("Authorized","TRUE");
+                JSONObject response = new JSONObject();
+                response.put("customer",responseCustomer);
+                System.out.println("TRUE");
+                return response.toString();
+            }
+        }
+        return "Authorization Failed";
+    };
+    @RequestMapping(value="/test")
+    @ResponseBody
+    public String test(){
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String password = "12345678";
+        if(passwordEncoder.matches(password,passwordEncoder.encode(password))){
+            return "EDEM DALSHE";
+        }
+        return "FALSE";
     }
-    @RequestMapping(value ="**/api/customers/attributes",method=RequestMethod.GET)
+    @RequestMapping(value ="**/api/customer/attributes",method=RequestMethod.GET)
     @ResponseBody
     public String getCustomerAttributes(){
         AdapterJson adapter = new AdapterJson();
         return adapter.CustomerAttributes().toString();
     };
-    @RequestMapping(value = "api/customers/add", method = RequestMethod.POST)
-    @ResponseBody
-    public void addCustomer(@RequestBody String json) throws ParseException {
-        org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
-        JSONObject item = (JSONObject) parser.parse(json);
-        String customerFirstName = (String) item.get("customerFirstName");
-        String customerLastName = (String) item.get("customerLastName");
-        factory.getCustomerService().addCustomer(new Customer(customerFirstName,customerLastName));
-        socketEvent.sendCustomerEvent("CUSTOMER_ADDED_EVENT");
-    }
-    @RequestMapping(value = "api/customers/update",method = RequestMethod.POST)
-    @ResponseBody
-    public void updateCustomer(@RequestBody String json) throws ParseException{
-        org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
-        JSONObject item = (JSONObject) parser.parse(json);
-        System.out.println("ITEM TO UPDATE " + item.toString());
-        int customerId = Integer.parseInt(item.get("customerID").toString());
-        String customerFirstName = (String) item.get("customerFirstName");
-        System.out.println("CUSTOMER FIRST NAME" + customerFirstName);
-        String customerLastName = (String) item.get("customerLastName");
-        System.out.println("CUSTOMER SECOND NAME " + customerLastName);
-        Customer customerToUpdate = factory.getCustomerService().getCustomerByID((long) customerId);
-        customerToUpdate.setFirstname(customerFirstName);
-        customerToUpdate.setLastname(customerLastName);
-        factory.getCustomerService().updateCustomer(customerToUpdate);
-        System.out.println("CUSTOMER UPDATED");
 
-        socketEvent.sendCustomerEvent("CUSTOMER_UPDATED_EVENT");
-    }
-    @RequestMapping(value = "api/customers/delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "**api/customer/registration", method = RequestMethod.POST)
     @ResponseBody
-    public  void deleteCustomerById(@PathVariable int id){
-        factory.getCustomerService().deleteCustomer((long) id);
-        socketEvent.sendCustomerEvent("CUSTOMER_DELETED_EVENT");
+    public  void deleteCustomerById(@RequestBody String json) throws ParseException {
+        org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
+        JSONObject customer = (JSONObject) parser.parse(json);
+        System.out.println(customer);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String customerFirstName = (String) customer.get("customerFirstName");
+        String customerLastName = (String) customer.get("customerLastName");
+        String customerPassword = passwordEncoder.encode((String) customer.get("password"));
+        System.out.println(customerPassword);
+        String customerEMail = (String) customer.get("email");
+        Customer customerToAdd = new Customer(customerFirstName,customerLastName,customerEMail,customerPassword);
+        System.out.println("CUSTOMER FIRST NAME " + customerFirstName);
+        System.out.println("CUSTOMER LAST NAME " + customerLastName);
+        System.out.println("CUSTOMER PASSWORD " + customerPassword);
+        System.out.println("CUSTOMER EMAIL " +customerEMail);
+        factory.getCustomerService().addCustomer(customerToAdd);
     }
 }

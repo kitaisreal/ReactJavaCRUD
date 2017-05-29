@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDom from "react-dom";
 import {fetchAttributesCustomer} from "../Actions/customerAttributesActions";
-import {customerUpdate} from "../Actions/customerActions";
+import {customeAuthorization} from "../Actions/customerActions";
 import {connect} from "react-redux";
 
 class UpdateCustomerDialog extends React.Component {
@@ -67,7 +67,7 @@ const mapDispatchToProps=(dispatch)=>{
             dispatch(fetchAttributesCustomer())
         },
         onUpdateCustomer:(customer)=>{
-            dispatch(customerUpdate(customer))
+            dispatch(customeAuthorization(customer))
         }
     };
 };

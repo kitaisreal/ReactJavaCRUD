@@ -20,16 +20,6 @@ public class AdapterJson {
         response.put("items",itemsJson);
         return response;
     }
-    public JSONObject CustomerListToJson(List<Customer> list){
-        ArrayList<JSONObject> customersJson = new ArrayList<>();
-        for (Customer it: list){
-            customersJson.add(CustomerToJson(it));
-        }
-        JSONObject responce = new JSONObject();
-        responce.put("customers", customersJson);
-        return responce;
-
-    }
     public JSONObject ItemToJSon(Item item){
         JSONObject itemJson = new JSONObject();
         itemJson.put("itemID", item.getId());
@@ -40,13 +30,6 @@ public class AdapterJson {
         itemJson.put("itemFullName",item.getItemname()+ " " + item.getBrandname());
         return itemJson;
     }
-    public JSONObject CustomerToJson(Customer customer){
-        JSONObject customerJson = new JSONObject();
-        customerJson.put("customerID", customer.getId());
-        customerJson.put("customerFirstName",customer.getFirstname());
-        customerJson.put("customerLastName", customer.getLastname());
-        return customerJson;
-    }
     public JSONObject ItemsAttributes(){
         JSONArray itemAttributes = new JSONArray();
         itemAttributes.add("itemName");
@@ -55,13 +38,16 @@ public class AdapterJson {
         JSONObject response = new JSONObject();
         response.put("attributesItem",itemAttributes);
         return response;
-    };
+    }
+
     public JSONObject CustomerAttributes(){
         JSONArray customerAttributes = new JSONArray();
         customerAttributes.add("customerFirstName");
         customerAttributes.add("customerLastName");
+        customerAttributes.add("email");
+        customerAttributes.add("password");
         JSONObject response = new JSONObject();
         response.put("attributesCustomer",customerAttributes);
         return response;
-    };
+    }
 }

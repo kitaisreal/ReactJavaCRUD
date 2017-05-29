@@ -1,21 +1,34 @@
 import React from 'react';
 import { Navbar, NavItem, Nav, Grid, Row, Col ,FormControl ,Tooltip, Popover, Modal, Button, OverlayTrigger} from "react-bootstrap";
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 import CreateItemModal from "./createItemModal";
-export const Header =()=>{
-    return (
-        <div>
-            <Navbar>
-                <Navbar.Header>
-                    <Navbar.Brand>
-                        <Link to={'/'}> React Redux Spring Simple App</Link>
-                    </Navbar.Brand>
-                </Navbar.Header>
-                <Nav pullRight>
-                    <NavItem><CreateItemModal/></NavItem>
-                    <NavItem>Link2</NavItem>
-                </Nav>
-             </Navbar>
-        </div>
-    )
+import {HeaderComponent} from "./headerComponents"
+class Header extends React.Component{
+    constructor(props) {
+        super(props);
+    }
+    render() {
+        console.log(this.props.customer.Authorized);
+        return (
+            <div>
+                <Navbar>
+                    <Navbar.Header>
+                        <Navbar.Brand>
+                            <Link to={'/'}> React Redux Spring Simple App</Link>
+                        </Navbar.Brand>
+                    </Navbar.Header>
+                    <Nav pullRight>
+                        <HeaderComponent auth={this.props.customer.Authorized}/>
+                    </Nav>
+                </Navbar>
+            </div>
+        )
+    }
+}
+const mapStateToProps=(state)=>{
+    return {
+        customer:state.customer
+    };
 };
+export default connect(mapStateToProps,null)(Header)

@@ -1,6 +1,5 @@
 import React from "react";
 import Item from "./item"
-import {store} from "redux";
 import {connect} from "react-redux";
 import {itemsFetch} from '../Actions/itemsActions.js'
 import { Navbar, NavItem, Nav, Grid, Row, Col ,FormControl ,Tooltip, Popover, Modal, Button, OverlayTrigger} from "react-bootstrap";

@@ -8,8 +8,8 @@ export const receiveAttributesCustomer=(json)=>{
 
 export const fetchAttributesCustomer=()=>{
     return dispatch=>{
-        return fetch('api/customers/attributes')
-            .then(responce=>responce.json())
+        return fetch('api/customer/attributes')
+            .then(response=>response.json())
             .then(json=>dispatch(receiveAttributesCustomer(json)))
     };
 };

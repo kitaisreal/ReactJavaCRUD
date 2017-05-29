@@ -20,9 +20,6 @@ export default class Item extends React.Component{
                     <img className="image" src={`images/${this.props.item.itemImageName}`} />
                 </td>
                 <td>
-                    <Link to={`/items/${this.props.item.itemID}`}>LINK</Link>
-                </td>
-                <td>
                     <button onClick={this.props.onClick}>delete</button>
                 </td>
             </tr>

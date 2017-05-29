@@ -28,19 +28,19 @@ public class ItemController {
         this.socketEvent=socketEvent;
     }
 
-    @RequestMapping(value = "api/items", method = RequestMethod.GET)
+    @RequestMapping(value = "**/api/items", method = RequestMethod.GET)
     @ResponseBody
     public String getAllItems(){
         AdapterJson adapter = new AdapterJson();
         return adapter.ItemListToJson(factory.getItemService().getAllItems()).toString();
     }
-    @RequestMapping(value ="api/items/attributes",method=RequestMethod.GET)
+    @RequestMapping(value ="**/api/items/attributes",method=RequestMethod.GET)
     @ResponseBody
     public String getItemAttributes(){
         AdapterJson adapter = new AdapterJson();
         return adapter.ItemsAttributes().toString();
     };
-    @RequestMapping(value = "api/items/add", method = RequestMethod.POST)
+    @RequestMapping(value = "**/api/items/add", method = RequestMethod.POST)
     @ResponseBody
     public void addItem(@RequestParam("item") String json ,@RequestParam("file") MultipartFile file) throws ParseException {
         AdapterItem adapterItem = new AdapterItem();
@@ -49,7 +49,7 @@ public class ItemController {
         socketEvent.sendItemEvent("ITEM_ADDED_EVENT");
         factory.getImageService().createItemImage(file,item);
     }
-    @RequestMapping(value = "api/items/update",method = RequestMethod.POST)
+    @RequestMapping(value = "**/api/items/update",method = RequestMethod.POST)
     @ResponseBody
     public void updateItem(@RequestParam("item") String json ,@RequestParam(value = "file") MultipartFile file) throws ParseException{
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
@@ -68,20 +68,18 @@ public class ItemController {
         factory.getImageService().updateItemImage(file, itemToUpdate, oldItem);
         socketEvent.sendItemEvent("ITEM_UPDATED_EVENT");
     }
-    @RequestMapping(value ="api/items/get/{id}",method=RequestMethod.GET)
+    @RequestMapping(value ="**/api/items/get/{id}",method=RequestMethod.GET)
     @ResponseBody
     public String getItemById(@PathVariable int id){
         AdapterJson adapterJson = new AdapterJson();
         Item item = factory.getItemService().getItemByID((long)(id));
-        try {
-            JSONObject json = adapterJson.ItemToJSon(item);
-            json.put("customerFullName","CUSTOMERFULLNAME");
-            return json.toString();
-        } catch (NullPointerException e){
-            return "NO ITEM WITH THIS ID";
-        }
+        JSONObject json = adapterJson.ItemToJSon(item);
+        json.put("customerFullName","CUSTOMERFULLNAME");
+        JSONObject response = new JSONObject();
+        response.put("singleItem",json);
+        return response.toString();
     }
-    @RequestMapping(value = "api/items/delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "**/api/items/delete/{id}", method = RequestMethod.GET)
     @ResponseBody
     public  void deleteItemById(@PathVariable int id){
         factory.getImageService().deleteItemImage(factory.getItemService().getItemByID((long)id));
@@ -89,11 +87,12 @@ public class ItemController {
         socketEvent.sendItemEvent("ITEM_DELETED_EVENT");
     }
 
-    @RequestMapping(value = "/images/{imageName}")
+    @RequestMapping(value = "**/images/{imageName}", method = RequestMethod.GET)
     @ResponseBody
     public byte[] getImage(@PathVariable(value = "imageName") String imageName) throws IOException {
-
+        System.out.println("TRY TO GET IMAGE SUKA");
         File serverFile = new File(factory.getImageService().getAbsolutePath() + imageName);
-        return Files.readAllBytes(serverFile.toPath());
+        if (serverFile.exists()) return Files.readAllBytes(serverFile.toPath());
+        return new byte[0];
     }
 }

@@ -4,16 +4,16 @@ import { Navbar, NavItem, Nav, Grid, Row, Col ,FormControl ,Tooltip, Popover, Mo
 import {BrowserRouter,Route,Link} from 'react-router-dom';
 import {singleItemFetch} from "../Actions/singleItemActions";
 class SingleItem extends React.Component {
-    constructor(props) {
-        super(props);
-    }
     componentDidMount() {
-        console.log(this.props.params.id);
+        this.props.onSingleItemGet(this.props.match.params.id);
     }
     render() {
         return (
             <div>
-                <p>SINGLE ITEM PAGE</p>
+                <p>{this.props.singleItem.itemName}</p>
+                <p>{this.props.singleItem.brandName}</p>
+                <p>{this.props.singleItem.customerFullName}</p>
+                <img className="image" src={`images/${this.props.singleItem.itemImageName}`} />
             </div>
         );
     }

@@ -5,8 +5,7 @@ import {createStore, combineReducers} from 'redux';
 const items =(state=[],action)=>{
     switch(action.type){
         case 'FETCH_SINGLE_ITEM':
-            console.log("SINGLE ITEM FETCHED CHECK FOR SOCKETS");
-            return action.singleitem;
+            return action.singleItem;
         default:
             return state;
     }

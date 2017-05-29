@@ -8,7 +8,7 @@ export const receiveAttributesItem =(json)=>{
 export const fetchAttributesItem=()=>{
     return dispatch=>{
         return fetch('api/items/attributes')
-            .then(responce=>responce.json())
+            .then(response=>response.json())
             .then(json=>dispatch(receiveAttributesItem(json)))
     };
 };

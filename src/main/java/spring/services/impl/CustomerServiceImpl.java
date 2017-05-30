@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import spring.entities.Customer;
 import spring.repository.CustomerRepository;
-import spring.repository.ItemRepository;
 import spring.services.CustomerService;
 
 import java.util.List;
@@ -23,16 +22,6 @@ public class CustomerServiceImpl implements CustomerService{
 
     @Override
     public void addCustomer(Customer customer) {
-        customerRepository.save(customer);
-    }
-
-    @Override
-    public void deleteCustomer(Long id) {
-        customerRepository.delete(id);
-    }
-
-    @Override
-    public void updateCustomer(Customer customer) {
         customerRepository.save(customer);
     }
 

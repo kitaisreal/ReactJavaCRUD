@@ -61,18 +61,12 @@ public class CustomerController {
     public  void deleteCustomerById(@RequestBody String json) throws ParseException {
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
         JSONObject customer = (JSONObject) parser.parse(json);
-        System.out.println(customer);
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String customerFirstName = (String) customer.get("customerFirstName");
         String customerLastName = (String) customer.get("customerLastName");
         String customerPassword = passwordEncoder.encode((String) customer.get("password"));
-        System.out.println(customerPassword);
         String customerEMail = (String) customer.get("email");
         Customer customerToAdd = new Customer(customerFirstName,customerLastName,customerEMail,customerPassword);
-        System.out.println("CUSTOMER FIRST NAME " + customerFirstName);
-        System.out.println("CUSTOMER LAST NAME " + customerLastName);
-        System.out.println("CUSTOMER PASSWORD " + customerPassword);
-        System.out.println("CUSTOMER EMAIL " +customerEMail);
         factory.getCustomerService().addCustomer(customerToAdd);
     }
 }

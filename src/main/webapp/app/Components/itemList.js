@@ -5,7 +5,6 @@ import {itemsFetch} from '../Actions/itemsActions.js'
 import { Navbar, NavItem, Nav, Grid, Row, Col ,FormControl ,Tooltip, Popover, Modal, Button, OverlayTrigger,ButtonGroup} from "react-bootstrap";
 import {itemDelete} from "../Actions/itemsActions";
 import SearchBar from './searchBar';
-import {customerLogOut} from "../Actions/customerActions";
 class ItemList extends React.Component{
     constructor(props) {
         super(props);

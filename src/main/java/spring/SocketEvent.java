@@ -18,7 +18,4 @@ public class SocketEvent {
     public void sendItemEvent(String event){
         this.websocket.convertAndSend("/topic/items",event);
     }
-    public void sendCustomerEvent(String event){
-        this.websocket.convertAndSend("/topic/customers",event);
-    }
 }

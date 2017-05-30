@@ -3,7 +3,6 @@ package spring.adapter;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import spring.entities.Customer;
 import spring.entities.Item;
 
 import java.util.ArrayList;

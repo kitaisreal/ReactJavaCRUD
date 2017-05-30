@@ -4,7 +4,6 @@ import {Provider} from 'react-redux'
 import {createStore, combineReducers,applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './Reducers/rootReducer.js';
-import {itemsFetch} from "./Actions/itemsActions";
 
 const middleware = [thunk];
 const initialState = {

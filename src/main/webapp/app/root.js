@@ -20,12 +20,7 @@ stompClient.connect({}, function(frame) {
     stompClient.subscribe('/topic/items', function(messageOutput){
         console.log("SOCKET EVENT " + messageOutput);
         store.dispatch(itemsFetch())
-    })
-    stompClient.subscribe('/topic/customers', function(messageOutput){
-        console.log("SOCKET EVENT "+ messageOutput);
-        store.dispatch(customersFetch())
-    })
-
+    });
 });
 ReactDom.render(
     <Provider store={store}>

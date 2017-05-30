@@ -44,5 +44,4 @@ public class Item {
         this.itemimagename = imagename;
     }
     private Item(){}
-
 }

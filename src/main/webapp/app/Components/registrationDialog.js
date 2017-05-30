@@ -52,7 +52,7 @@ class RegistrationDialog extends React.Component {
             <div>
                 <Button
                     bsStyle="primary"
-                    bsSize="small"
+                    bsSize="large"
                     onClick={this.open}
                 >
                     Registration

@@ -5,12 +5,11 @@ import AuthorizationDialog from "./authorizationDialog"
 import RegistrationDialog from './registrationDialog'
 export const HeaderComponent =({auth})=>{
     if (auth !="TRUE") return (
-        <div>
-        <Row>
+        <Nav pullRight>
             <RegistrationDialog/>
             <AuthorizationDialog/>
-        </Row>
-    </div>);
+        </Nav>
+    );
     return (
         <div>
             <CreateItemModal/>

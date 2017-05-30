@@ -10,6 +10,9 @@ const customer=(state=[],action)=> {
         case 'CUSTOMER_AUTHORIZATION':
             console.log("AUTHORIZATION SUCCESS");
             return action.customer;
+        case 'CUSTOMER_LOG_OUT':
+            console.log("CUSTOMER LOG OUT");
+            return {};
         default:
             return state;
     }

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDom from "react-dom";
 import {connect} from "react-redux";
-import { Navbar, NavItem, Nav, Grid, Row, Col ,FormControl ,Tooltip, Popover, Modal, Button, OverlayTrigger} from "react-bootstrap";
+import { Navbar, NavItem, Nav, Grid, Row, Col ,FormControl,FormGroup ,Tooltip, Popover, Modal, Button, OverlayTrigger} from "react-bootstrap";
 import {itemCreate} from "../Actions/itemsActions";
 import {fetchAttributesItem} from "../Actions/itemsAttributesActions";
 
@@ -45,33 +45,31 @@ class CreateItemModal extends React.Component{
 
     render() {
         const inputs = this.props.attributesItem.map(attribute => (
-                <p key={attribute}>
-                    <input type="text" placeholder={attribute} ref={attribute} className="field"/>
-                </p>
+                <div key={attribute}>
+                    <FormControl type="text" placeholder={attribute} ref={attribute} className="field"/>
+                </div>
             )
         );
         return (
             <div>
                 <Button
-                    bsStyle="primary"
-                    bsSize="large"
+                    bsStyle="default"
                     onClick={this.open}
                 >
                     Add Item
                 </Button>
-
                 <Modal show={this.state.showModal} onHide={this.close}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Item Add</Modal.Title>
+                        <Modal.Title>CREATE ITEM</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <div>
+                        <FormGroup>
                             {inputs}
-                            <input type="file" ref="file"/>
-                        </div>
+                            <FormControl type="file" ref="file"/>
+                        </FormGroup>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button onClick={this.handleSubmit}>Create</Button>
+                        <Button onClick={this.handleSubmit} bsStyle="success">Create</Button>
                         <Button onClick={this.close}>Close</Button>
                     </Modal.Footer>
                 </Modal>

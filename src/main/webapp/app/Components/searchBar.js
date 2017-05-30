@@ -1,6 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import {searchChange} from "../Actions/searchActions";
+import { Navbar, NavItem, Nav, Grid, Row, Col ,FormControl ,Tooltip, Popover, Modal, Button, OverlayTrigger,FormGroup} from "react-bootstrap";
 class SearchBar extends React.Component{
     updateSearch(event){
         this.props.onSearchChange(event.target.value.substr(0,20));
@@ -8,7 +9,11 @@ class SearchBar extends React.Component{
     render() {
         return (
             <div>
-                <input type="text" value ={this.props.search} onChange={this.updateSearch.bind(this)}/>
+                <form>
+                    <FormGroup>
+                        <FormControl type="text" value ={this.props.search} placeholder="Type Item Name" onChange={this.updateSearch.bind(this)}/>
+                    </FormGroup>
+                </form>
             </div>
         )
     }

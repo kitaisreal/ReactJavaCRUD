@@ -11,6 +11,7 @@ class SingleItem extends React.Component {
     componentDidMount() {
         this.props.onSingleItemGet(this.props.match.params.id);
     }
+
     render() {
         return (
             <Grid>

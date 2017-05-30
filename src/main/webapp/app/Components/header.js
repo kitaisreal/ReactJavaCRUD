@@ -18,9 +18,7 @@ class Header extends React.Component{
                             <Link to={'/'}> React Redux Spring Simple App</Link>
                         </Navbar.Brand>
                     </Navbar.Header>
-                    <Nav pullRight>
-                        <HeaderComponent auth={this.props.customer.Authorized}/>
-                    </Nav>
+                    <HeaderComponent auth={this.props.customer.Authorized}/>
                 </Navbar>
             </div>
         )

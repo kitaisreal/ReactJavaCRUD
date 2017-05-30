@@ -36,10 +36,10 @@ class AuthorizationDialog extends React.Component {
             <div>
                 <Button
                     bsStyle="success"
-                    bsSize="small"
+                    bsSize="large"
                     onClick={this.open}
                 >
-                    Registration
+                    Authorization
                 </Button>
 
                 <Modal show={this.state.showModal} onHide={this.close}>

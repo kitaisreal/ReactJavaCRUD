@@ -1,5 +1,6 @@
 export const CUSTOMER_REGISTRATION='CUSTOMER_REGISTRATION';
 export const CUSTOMER_AUTHORIZATION='CUSTOMER_AUTHORIZATION';
+export const CUSTOMER_LOG_OUT='CUSTOMER_LOG_OUT';
 
 export const receiveCustomerRegistration=()=>{
     return {
@@ -13,6 +14,11 @@ export const receiveCustomerAuthorization=(json)=>{
     };
 };
 
+export const customerLogOut=()=>{
+    return {
+        type:CUSTOMER_LOG_OUT,
+    };
+}
 
 export const customerRegistration=(customer)=>{
     return dispatch=> {

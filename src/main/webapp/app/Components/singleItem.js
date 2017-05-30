@@ -30,7 +30,7 @@ class SingleItem extends React.Component {
         return (
             <Grid>
                 <Row>
-                    <Col md={8} sm={8}>
+                    <Col md={6} sm={6} className="thumbnail">
                         <img className="image" src={`images/${this.props.singleItem.itemImageName}`} />
                     </Col>
                     <Col md={4} sm={4}>

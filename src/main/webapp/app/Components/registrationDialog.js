@@ -49,11 +49,10 @@ class RegistrationDialog extends React.Component {
             )
         );
         return (
-            <div>
+            <div className="Comp">
                 <Button
-                    bsStyle="primary"
-                    bsSize="large"
                     onClick={this.open}
+                    bsStyle="primary"
                 >
                     Registration
                 </Button>
@@ -64,6 +63,7 @@ class RegistrationDialog extends React.Component {
                     </Modal.Header>
                     <Modal.Body>
                         <div>
+
                             {inputs}
                         </div>
                     </Modal.Body>

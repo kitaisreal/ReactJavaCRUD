@@ -1,8 +1,9 @@
 import React from 'react';
-import { Navbar, NavItem, Nav, Grid, Row, Col ,FormControl ,Tooltip, Popover, Modal, Button, OverlayTrigger} from "react-bootstrap";
+import { Navbar, NavItem, Nav, Grid, Row, Col ,FormControl ,Tooltip, Popover, Modal, Button, ButtonGroup, OverlayTrigger} from "react-bootstrap";
 import CreateItemModal from "./createItemModal"
 import AuthorizationDialog from "./authorizationDialog"
 import RegistrationDialog from './registrationDialog'
+import LogOut from "./logout"
 export const HeaderComponent =({auth})=>{
     if (auth !="TRUE") return (
         <Nav pullRight>
@@ -11,11 +12,9 @@ export const HeaderComponent =({auth})=>{
         </Nav>
     );
     return (
-        <div>
-            <CreateItemModal/>
-            <Button>
-                LogOut
-            </Button>
-        </div>
+            <Nav pullRight>
+                <CreateItemModal/>
+                <LogOut/>
+            </Nav>
     );
 };

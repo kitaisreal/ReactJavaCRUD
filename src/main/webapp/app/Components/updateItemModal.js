@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDom from "react-dom";
 import {connect} from "react-redux";
-import { Navbar, NavItem, Nav, Grid, Row, Col ,FormControl ,Tooltip, Popover, Modal, Button, OverlayTrigger} from "react-bootstrap";
+import { Navbar, NavItem, Nav, Grid, Row, Col ,FormControl ,Tooltip, Popover, Modal, Button, OverlayTrigger,FormGroup} from "react-bootstrap";
 import {fetchAttributesItem} from "../Actions/itemsAttributesActions";
 import {itemUpdate} from "../Actions/itemsActions";
 class UpdateItemModal extends React.Component{
@@ -32,6 +32,7 @@ class UpdateItemModal extends React.Component{
         this.props.attributesItem.forEach(attribute => {
             updatedItem[attribute] = ReactDom.findDOMNode(this.refs[attribute]).value.trim();
         });
+        updatedItem['ownerID']=this.props.customer.CustomerID;
         const data = new FormData();
         data.append('item',JSON.stringify(updatedItem));
         data.append('file',input.files[0]);
@@ -43,11 +44,11 @@ class UpdateItemModal extends React.Component{
     render() {
         const inputs = this.props.attributesItem.map(attribute =>
             <p key={attribute}>
-                <input type="text" placeholder={attribute} defaultValue = {this.props.item[attribute]} ref={attribute} className="field"/>
+                <FormControl type="text" placeholder={attribute} defaultValue = {this.props.item[attribute]} ref={attribute} className="field"/>
             </p>
         );
         return (
-            <div>
+            <div className="Comp">
                 <Button
                     bsStyle="primary"
                     onClick={this.open}
@@ -57,18 +58,17 @@ class UpdateItemModal extends React.Component{
 
                 <Modal show={this.state.showModal} onHide={this.close}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Item Add</Modal.Title>
+                        <Modal.Title><h2>Update Item</h2></Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <h2>Update Item</h2>
-                        <form>
+                        <FormGroup>
                             {inputs}
                             <input type="file" ref="file"/>
-                        </form>
+                        </FormGroup>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button onClick={this.handleSubmit}>UPDATE</Button>
                         <Button onClick={this.close}>Close</Button>
+                        <Button onClick={this.handleSubmit} bsStyle="success">Update</Button>
                     </Modal.Footer>
                 </Modal>
             </div>
@@ -77,7 +77,8 @@ class UpdateItemModal extends React.Component{
 }
 const mapStateToProps=(state)=>{
     return {
-        attributesItem:state.attributesItem
+        attributesItem:state.attributesItem,
+        customer:state.customer
     };
 };
 const mapDispatchToProps=(dispatch)=>{

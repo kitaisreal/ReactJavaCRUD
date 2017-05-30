@@ -8,7 +8,6 @@ class Header extends React.Component{
         super(props);
     }
     render() {
-        console.log(this.props.customer.Authorized);
         return (
             <div>
                 <Navbar>

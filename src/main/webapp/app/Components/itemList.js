@@ -2,7 +2,7 @@ import React from "react";
 import Item from "./item"
 import {connect} from "react-redux";
 import {itemsFetch} from '../Actions/itemsActions.js'
-import { Navbar, NavItem, Nav, Grid, Row, Col ,FormControl ,Tooltip, Popover, Modal, Button, OverlayTrigger} from "react-bootstrap";
+import { Navbar, NavItem, Nav, Grid, Row, Col ,FormControl ,Tooltip, Popover, Modal, Button, OverlayTrigger,ButtonGroup} from "react-bootstrap";
 import {itemDelete} from "../Actions/itemsActions";
 import SearchBar from './searchBar';
 import {customerLogOut} from "../Actions/customerActions";
@@ -33,7 +33,7 @@ class ItemList extends React.Component{
                             )}
                     </div>
                 </div>
-                <Button onClick={this.handleDelete}>LOGOUT</Button>
+
             </div>
         )
     }
@@ -51,9 +51,6 @@ const mapDispatchToProps=(dispatch)=>{
         },
         onItemDelete:(id)=>{
             dispatch(itemDelete(id))
-        },
-        onCustomerLogOut:()=>{
-            dispatch(customerLogOut());
         }
     };
 };

@@ -4,7 +4,10 @@
     display: flex;
     align-items: center;
 }
-
+.comp{
+    display: inline-block;
+    padding: 10px;
+}
 .modal-content {
     padding: 75px;
     margin: 0 auto;

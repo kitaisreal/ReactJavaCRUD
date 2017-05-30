@@ -52,9 +52,9 @@ class CreateItemModal extends React.Component{
             )
         );
         return (
-            <div>
+            <div className="Comp">
                 <Button
-                    bsStyle="default"
+                    bsStyle="primary"
                     onClick={this.open}
                 >
                     Add Item

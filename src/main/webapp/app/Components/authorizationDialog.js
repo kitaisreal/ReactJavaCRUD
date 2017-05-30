@@ -2,7 +2,7 @@ import React from "react";
 import ReactDom from "react-dom";
 import {connect} from "react-redux";
 import { customerAuthorization} from "../Actions/customerActions";
-import { Navbar, NavItem, Nav, Grid, Row, Col ,FormControl ,Tooltip, Popover, Modal, Button, OverlayTrigger} from "react-bootstrap";
+import { Navbar, NavItem, Nav, Grid, Row, Col ,FormControl ,Tooltip, Popover, Modal, Button, OverlayTrigger,FormGroup} from "react-bootstrap";
 
 class AuthorizationDialog extends React.Component {
     constructor(props) {
@@ -33,11 +33,10 @@ class AuthorizationDialog extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="Comp">
                 <Button
-                    bsStyle="success"
-                    bsSize="large"
                     onClick={this.open}
+                    bsStyle="success"
                 >
                     Authorization
                 </Button>
@@ -48,15 +47,17 @@ class AuthorizationDialog extends React.Component {
                     </Modal.Header>
                     <Modal.Body>
                         <div>
-                            <input type="text" placeholder="e-mail" ref="email" className="field"/>
-                            <input type="password" placeholder="password" ref="password" className="field"/>
+                            <FormGroup>
+                                <FormControl type="text" placeholder="e-mail"  ref="email" className="field"/>
+                                <FormControl type="password" placeholder="password" ref="password" className="field"/>
+                            </FormGroup>
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
+                        <Button onClick={this.close}>Close</Button>
                         <Button onClick={this.handleSubmit}
                                 bsStyle="success"
                         >Authorization</Button>
-                        <Button onClick={this.close}>Close</Button>
                     </Modal.Footer>
                 </Modal>
             </div>

@@ -40,6 +40,7 @@ public class CustomerController {
                 JSONObject responseCustomer = new JSONObject();
                 responseCustomer.put("CustomerID",cs.getId());
                 responseCustomer.put("Authorized","TRUE");
+                responseCustomer.put("CustomerFullName",cs.getFirstname()+ " " +cs.getLastname());
                 JSONObject response = new JSONObject();
                 response.put("customer",responseCustomer);
                 System.out.println("TRUE");

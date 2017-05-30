@@ -34,10 +34,12 @@ class SingleItem extends React.Component {
                         <img className="image" src={`images/${this.props.singleItem.itemImageName}`} />
                     </Col>
                     <Col md={4} sm={4}>
-                        <p>ItemName:{this.props.singleItem.itemName}</p>
-                        <p>BrandName:{this.props.singleItem.brandName}</p>
-                        <p>CustomerFullName:{this.props.singleItem.customerFullName}</p>
-                        {singleItemComponent}
+                        <div className="container">
+                            <h3>ItemName:{this.props.singleItem.itemName}</h3>
+                            <h3>BrandName:{this.props.singleItem.brandName}</h3>
+                            <h3>CustomerFullName:{this.props.singleItem.customerFullName}</h3>
+                            {singleItemComponent}
+                        </div>
                     </Col>
                 </Row>
             </Grid>

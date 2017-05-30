@@ -36,6 +36,7 @@ class CreateItemModal extends React.Component{
         this.props.attributesItem.forEach(attribute => {
             ReactDom.findDOMNode(this.refs[attribute]).value = '';
         });
+        newItem['ownerID']=this.props.customer.CustomerID;
         const data = new FormData();
         data.append('item',JSON.stringify(newItem));
         data.append('file',input.files[0]);
@@ -79,7 +80,8 @@ class CreateItemModal extends React.Component{
 }
 const mapStateToProps=(state)=>{
     return {
-        attributesItem:state.attributesItem
+        attributesItem:state.attributesItem,
+        customer:state.customer
     };
 };
 const mapDispatchToProps=(dispatch)=>{

@@ -73,8 +73,9 @@ public class ItemController {
     public String getItemById(@PathVariable int id){
         AdapterJson adapterJson = new AdapterJson();
         Item item = factory.getItemService().getItemByID((long)(id));
+        Customer customer = factory.getCustomerService().getCustomerByID(item.getCustomerid());
         JSONObject json = adapterJson.ItemToJSon(item);
-        json.put("customerFullName","CUSTOMERFULLNAME");
+        json.put("customerFullName",customer.getFirstname()+ " " +customer.getLastname());
         JSONObject response = new JSONObject();
         response.put("singleItem",json);
         return response.toString();

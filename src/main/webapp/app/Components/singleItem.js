@@ -13,6 +13,20 @@ class SingleItem extends React.Component {
     }
 
     render() {
+        let singleItemComponent;
+        if (this.props.customer.CustomerID==this.props.singleItem.ownerID){
+            singleItemComponent=(
+                <div>
+                <Button onClick={()=>{
+                this.props.onItemDelete(this.props.singleItem.itemID);
+                this.props.history.push("/items")}}>
+                Delete Item
+            </Button>
+            <UpdateItemModal
+            item={this.props.singleItem}
+            refreshSingleItem={this.props.onSingleItemGet(this.props.match.params.id)}/>
+                </div>);
+        }
         return (
             <Grid>
                 <Row>
@@ -23,15 +37,7 @@ class SingleItem extends React.Component {
                         <p>ItemName:{this.props.singleItem.itemName}</p>
                         <p>BrandName:{this.props.singleItem.brandName}</p>
                         <p>CustomerFullName:{this.props.singleItem.customerFullName}</p>
-                        <Button onClick={()=>{
-                            this.props.onItemDelete(this.props.singleItem.itemID);
-                            this.props.history.push("/items")}}>
-                                Delete Item
-                        </Button>
-                        <UpdateItemModal
-                            item={this.props.singleItem}
-                            refreshSingleItem={this.props.onSingleItemGet(this.props.match.params.id)}
-                        />
+                        {singleItemComponent}
                     </Col>
                 </Row>
             </Grid>
@@ -40,7 +46,8 @@ class SingleItem extends React.Component {
 }
 const mapStateToProps=(state)=>{
     return {
-        singleItem:state.singleItem
+        singleItem:state.singleItem,
+        customer:state.customer
     };
 };
 const mapDispatchToProps=(dispatch)=>{

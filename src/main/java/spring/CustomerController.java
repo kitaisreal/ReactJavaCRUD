@@ -48,16 +48,6 @@ public class CustomerController {
         }
         return "Authorization Failed";
     };
-    @RequestMapping(value="/test")
-    @ResponseBody
-    public String test(){
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String password = "12345678";
-        if(passwordEncoder.matches(password,passwordEncoder.encode(password))){
-            return "EDEM DALSHE";
-        }
-        return "FALSE";
-    }
     @RequestMapping(value ="**/api/customer/attributes",method=RequestMethod.GET)
     @ResponseBody
     public String getCustomerAttributes(){

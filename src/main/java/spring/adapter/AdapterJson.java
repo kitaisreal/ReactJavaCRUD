@@ -34,7 +34,6 @@ public class AdapterJson {
         JSONArray itemAttributes = new JSONArray();
         itemAttributes.add("itemName");
         itemAttributes.add("brandName");
-        itemAttributes.add("ownerID");
         JSONObject response = new JSONObject();
         response.put("attributesItem",itemAttributes);
         return response;

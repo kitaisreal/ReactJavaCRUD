@@ -2,7 +2,6 @@ import React from 'react';
 import { Navbar, NavItem, Nav, Grid, Row, Col ,FormControl ,Tooltip, Popover, Modal, Button, OverlayTrigger} from "react-bootstrap";
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import CreateItemModal from "./createItemModal";
 import {HeaderComponent} from "./headerComponents"
 class Header extends React.Component{
     constructor(props) {
